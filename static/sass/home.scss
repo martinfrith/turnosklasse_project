@@ -418,6 +418,12 @@ input[type="checkbox"], input[type="radio"] {
     font-family:Montserrat
 }
 
+.turno-status {
+	.column{
+    	margin-top:4rem;
+    }
+}
+
 .app__search {
     padding:1.5em;
     background-color:#00adef;
@@ -515,7 +521,7 @@ input[type="checkbox"], input[type="radio"] {
 		input[type=email],
 		input[type=phone],
 		input[type=text]{
-	    	color:green!important
+	    	color:black!important
 		}
 	}
 

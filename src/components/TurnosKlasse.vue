@@ -3,18 +3,36 @@
     <div class="hero-body">
       <div class="container">
 
-        <article v-if="announcement" :class="'message ' + announcement.type">
+        <article v-if="$root.storage.announcement" :class="'message ' + announcement.type">
           <div class="message-body">
-            <span v-html="announcement.message"></span>
+            <span v-html="$root.storage.announcement.message"></span>
           </div>
         </article>        
 
         <div class="columns is-fullhd">
           <div class="column is-9">
             <div class="app__search revealer has-text-left" :class="{ 'apply' : !loading }">
-              
-              <div v-if="!err && !sent && !sending">
 
+              <div v-if="err || sent || sendinf" class="turno-status">
+                <div class="content has-text-centered">
+                  <div class="columns">
+                    <div v-if="sending" class="column">
+                      <h1 class="is-size-1"><i class="fa fa-clock-o has-text-white"></i></h1> 
+                      <p class="has-text-white">Estamos procesando su solicitud</p>
+                    </div>
+                    <div v-if="err" class="column">
+                      <h1 class="is-size-1"><i class="fa fa-check has-text-white"></i></h1> 
+                      <p class="has-text-white">Hubo un error. El servidor no respondió como se esperaba. Vuelva a intentarlo en unos minutos.<a href="#">Intentar nuevamente</a></p>
+                    </div>
+                    <div v-if="sent" class="column">
+                      <h1 class="is-size-1"><i class="fa fa-check has-text-white"></i></h1> 
+                      <p class="has-text-white">Gracias por elegirnos. Tu solicitud fue procesada con éxito, en breve estaremos confirmando la misma. <a href="#">Solicitar nuevo turno</a></p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div v-if="!err && !sent && !sending">
                 <div class="content">
                     <p class="has-text-white">Seleccione vehículo, servicio y sucursal por la que desea ser atendido.</p>
                 </div>
@@ -30,7 +48,7 @@
                   </div>
                   <div class="column is-half">
                     <div class="other-actions">
-                      <a href="#" class="has-text-info is-size-7">Mi modelo no está</a>
+                      <a href="#" class="has-text-info is-size-7" @click="inputModel">Mi modelo no está</a>
                     </div>
                     <div class="button is-large is-white is-fullwidth" :class="{ 'accepted' : search.vehicle }">
                       <span class="icon">
@@ -54,7 +72,7 @@
                       </template>
                       <template slot="selected-option" scope="option">
                         <div class="selected d-center">
-                          <!-- {{ option.city }} ({{ option.airport_code }}) -->
+                          <!--strong class="has-text-success">{{ option.title }}</strong-->
                         </div>
                       </template>                  
                     </v-select>                
@@ -157,12 +175,12 @@
                       <ul class="is-pulled-left has-text-left">
                       <li><span>Fecha turno</span></li>
                       <li>
-                      <span v-if="search.turno_date" class="has-text-success" v-html="search.turno_date"></span>
+                      <span v-if="search.turno_date" class="has-text-black" v-html="search.turno_date"></span>
                       <span v-else class="has-text-grey">aaaa/mm/dd</span>
                       </li>
                       </ul>
                     </div>
-                    <vue-datepicker-local :local="$root.local" v-model="search.turno_date" format="YYYY-MM-DD"></vue-datepicker-local>
+                    <vue-datepicker-local :local="$root.datepicker" v-model="search.turno_date" format="YYYY-MM-DD"></vue-datepicker-local>
                   </div>
                   <div class="column is-one-quarter turno-time">
                     <div class="button is-large is-white is-fullwidth" @click="showReturnDate">
@@ -173,7 +191,7 @@
                         <li><span>Horario</span></li>
                         <li>
                         <span v-if="search['return-date']" class="has-text-info" v-html="search['return-date']"></span>
-                        <span v-else class="has-text-grey" jsb-word="search-depart-placeholder"></span>
+                        <span v-else class="has-text-grey"></span>
                         </li>
                       </ul>
                     </div>

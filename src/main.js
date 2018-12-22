@@ -1,13 +1,9 @@
-// The Vue build version to load with the `import` command
-// (runtime-only or standalone) has been set in webpack.base.conf with an alias.
+
 import Vue from 'vue'
-//import VueResource from 'vue-resource';
 import axios from 'axios';
 import App from './App'
 import router from './router'
 import moment from 'moment';
-//import vueSlider from 'vue-slider-component'
-//import Datepicker from 'vuejs-datepicker';
 import VueDatepickerLocal from 'vue-datepicker-local'
 import Passengerpicker from '@/components/Passengerpicker';
 import vSelect from 'vue-select'
@@ -16,50 +12,28 @@ import { snackbar } from '@/components/Snackbar';
 require('../static/sass/main.scss');
 
 Vue.config.productionTip = false;
-//Vue.use(VueResource);
 Vue.component('vue-datepicker-local', VueDatepickerLocal);
 Vue.component('v-select', vSelect)
 Vue.component('passengerpicker', Passengerpicker);
-//Vue.component('vue-slider', vueSlider);
-
-/* eslint-disable no-new */
 
 new Vue({
 	el: '#app',
 	router,
 	template: '<App/>',
 	components: {App},
-	created: function () {
-		
-	},
 	mounted: function(){
+
+		var that = this
+	    axios.get('/static/dummy/storage.json').then(function(res){
+    	  that.storage = res.data
+    	})
+
 		this.ready = true;
-	},
-	methods : {
-	    searchDeparture : function(search, loading){
-	      loading(true);
-	      this.searchAirport(loading, search, this, 'departures');
-	    },
-	    searchArrival : function(search, loading){
-	      loading(true);
-	      this.searchAirport(loading, search, this, 'arrivals');
-	    },    
-	    searchAirport: _.debounce((loading, search, vm, i) => {
-	      var that = this
-	      axios.get( `https://jetsbooking.herokuapp.com/airports/${escape(search)}` )
-	        .then(res => {
-				vm[i] = res.data;
-				loading(false);
-	        }).catch(function(error) {
-	          console.log(error)
-	        })
-	    }, 350)
 	},
 	data: function() {
     	return{
     		ready: false,
-    		storage: {},
-		    local: {
+		    datepicker: {
                 monthsHead: "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Deciembre".split("_"),
                 months: "Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic".split("_"),
 		        weeks: 'D_L_M_X_J_V_S'.split('_'), // weeks,      
