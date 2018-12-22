@@ -49,8 +49,7 @@
                       </template>                
                       <template slot="option" slot-scope="option">
                         <div class="d-center">
-                          <strong>{{ option.city }}, {{ option.state }}</strong> {{ option.country }}<br>
-                          ({{ option.airport_code }}) {{ option.airport }}
+                          <strong>{{ option.title }}</strong>
                         </div>
                       </template>
                       <template slot="selected-option" scope="option">
@@ -65,7 +64,7 @@
                 <div class="columns">
                   <div class="column toggle-type is-half">
                     <div class="columns is-mobile" value="service_type">
-                      <div class="column button is-large" :class="{ 'is-white' : search.service_type != 'auto' }" value="reparacion" @click="setToggleType">Turno Taller</div>
+                      <div class="column button is-large" :class="{ 'is-white' : search.service_type != 'reparacion' }" value="reparacion" @click="setToggleType">Turno Taller</div>
                       <div class="column button is-large" :class="{ 'is-white' : search.service_type != 'reposiciones-seguros' }" value="reposiciones-seguros" @click="setToggleType">Seguros</div>
                       <div class="column button is-large" :class="{ 'is-white' : search.service_type != 'repuestos' }" value="repuestos" @click="setToggleType">Repuestos</div>
                     </div>
@@ -78,12 +77,12 @@
                       <ul class="is-pulled-left has-text-left">
                       <li><span>Sucursal</span></li>
                       <li>
-                        <span v-if="search.arrival" class="has-text-info" v-html="search.arrival"></span>
+                        <span v-if="search.dealer" v-html="search.dealer.nombre"></span>
                         <!--span v-else class="has-text-grey" jsb-word="search-origin-placeholder"></span-->
                       </li>
                       </ul>
                     </div>
-                    <v-select v-model="search.dealer" maxHeight="inherit" placeholder="Seleccione Sucursal" :filterable="false" :options="filtroDealers" label="nombre">
+                    <v-select v-model="search.dealer" maxHeight="inherit" placeholder="Seleccione Sucursal" :selected="search.dealer" :options="filtroDealers" label="nombre">
                       <template slot="no-options">
                         Seleccione Sucursal
                       </template>                
@@ -163,7 +162,7 @@
                       </li>
                       </ul>
                     </div>
-                    <vue-datepicker-local :local="$root.local" v-model="search.turno_date"></vue-datepicker-local>
+                    <vue-datepicker-local :local="$root.local" v-model="search.turno_date" format="YYYY-MM-DD"></vue-datepicker-local>
                   </div>
                   <div class="column is-one-quarter turno-time">
                     <div class="button is-large is-white is-fullwidth" @click="showReturnDate">
@@ -217,7 +216,7 @@
         <div class="columns is-multiline">
           <div v-for="offer in offers" class="column is-3">
             <a class="dealer" :href="offer.url" target="_blank">
-              <div class="bg-inline" :style="'background-image:url(' + offer.image + ')'">
+              <div class="has-background-image" :style="'background-image:url(' + offer.image + ')'">
               </div>
               <div class="has-text-left">
                 <h1 class="has-text-info" v-html="offer.title"></h1>
@@ -299,7 +298,6 @@ export default {
   watch: {
       search: {
           handler: function(t, e) {
-
               this.handleSearchUpdate(t)
           },
           immediate: true,
@@ -311,7 +309,10 @@ export default {
         console.log("updating storage from home"), this.offers = t.offers.collection, t.ads && t.ads.collection && (this.ads = t.ads.collection.slice(1))
     },
     handleSearchUpdate: function(t) {
-        this.canShowResults = !1, this.search.turno_date && (this.search.turno_date = p()(this.search.turno_date).format("YYYY-MM-DD")), t.turno_date && t.turno_time && t.dealer && this.validateEmail(t.email) && this.validateName(t.full_name) && this.validatePhone(t.phone) && (this.canShowResults = !0)
+        if(this.search.turno_date){
+          this.search.turno_date = moment(this.search.turno_date).format("YYYY-MM-DD")
+        }
+        this.canShowResults = !1, t.turno_date && t.turno_time && t.dealer && this.validateEmail(t.email) && this.validateName(t.full_name) && this.validatePhone(t.phone) && (this.canShowResults = !0)
     },
     validateEmail: function(t) {
         return /\S+@\S+\.\S+/.test(t)

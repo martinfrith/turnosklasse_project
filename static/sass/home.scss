@@ -431,8 +431,8 @@ input[type="checkbox"], input[type="radio"] {
 	ul {
 		line-height: 1rem;
 		position: absolute;
-		left: 2rem;
-		top: 0.25rem;
+		left: 2.15rem;
+		top: 0.35rem;
 	}
 	
 	li {
@@ -453,10 +453,10 @@ input[type="checkbox"], input[type="radio"] {
 	}
 	
 	.toggle-type {
-
+		min-height: 55px;
 		padding: 1.1rem;
 
-		.button{
+		.button {
 		    z-index:2;
 		    line-height:2rem;
 		    border-radius:0;
@@ -470,8 +470,11 @@ input[type="checkbox"], input[type="radio"] {
 			&:last-child{
 			    border-top-right-radius:5px;
 			    border-bottom-right-radius:5px
-			}			
+			}
 
+			&:not(.is-white) {
+				background-color: blue;
+			}
 		}		
 	}
 
@@ -492,7 +495,7 @@ input[type="checkbox"], input[type="radio"] {
 		.icon {
 		    max-width:1rem;
 		    position:relative;
-		    left:.25rem;
+		    left:0;
 		    top:-.3rem
 		}
 
@@ -595,7 +598,7 @@ input[type="checkbox"], input[type="radio"] {
 		    position:relative;
 		    font-size:12px!important;
 		    left:1.6rem;
-		    top:.5rem;
+		    top:0.95rem;
 		}
 
 		.dropdown-menu{
@@ -623,7 +626,7 @@ input[type="checkbox"], input[type="radio"] {
 
 	.other-actions{
 	    position:absolute;
-	    top:7px;
+	    top:6px;
 	    right:12px;
 	    z-index:9
 	}	
@@ -685,10 +688,7 @@ input[type="checkbox"], input[type="radio"] {
 }
 
 
-.toggle-type {
-	min-height: 55px;
-}
-.bg-inline {
+.has-background-image {
 	background-repeat: no-repeat;
 	background-position: center;
 	background-size: cover;

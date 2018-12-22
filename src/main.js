@@ -5,9 +5,8 @@ import Vue from 'vue'
 import axios from 'axios';
 import App from './App'
 import router from './router'
-import helper from '@/components/Helper';
 import moment from 'moment';
-import vueSlider from 'vue-slider-component'
+//import vueSlider from 'vue-slider-component'
 //import Datepicker from 'vuejs-datepicker';
 import VueDatepickerLocal from 'vue-datepicker-local'
 import Passengerpicker from '@/components/Passengerpicker';
@@ -21,7 +20,7 @@ Vue.config.productionTip = false;
 Vue.component('vue-datepicker-local', VueDatepickerLocal);
 Vue.component('v-select', vSelect)
 Vue.component('passengerpicker', Passengerpicker);
-Vue.component('vue-slider', vueSlider);
+//Vue.component('vue-slider', vueSlider);
 
 /* eslint-disable no-new */
 
@@ -59,11 +58,10 @@ new Vue({
 	data: function() {
     	return{
     		ready: false,
-		    departures: [],
-		    arrivals: [],    		
+    		storage: {},
 		    local: {
-		        monthsHead: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'), // months of head
-		        months: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'), // months of panel
+                monthsHead: "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Deciembre".split("_"),
+                months: "Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic".split("_"),
 		        weeks: 'D_L_M_X_J_V_S'.split('_'), // weeks,      
 		        dow: 0, // Sunday is the first day of the week
 		        hourTip: 'Select Hour', // tip of select hour
@@ -73,9 +71,7 @@ new Vue({
 		        //monthsHead: 'January_February_March_April_May_June_July_August_September_October_November_December'.split('_'),
 		        //months: 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'), 
 		        //weeks: 'S_M_T_W_T_F_S'.split('_') 
-		    },
-			storage: {}, 
-			language: null
+		    }			
 		}
 	}	
 });
