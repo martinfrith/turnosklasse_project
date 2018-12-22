@@ -1,0 +1,363 @@
+<template>
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container">
+
+        <article v-if="announcement" :class="'message ' + announcement.type">
+          <div class="message-body">
+            <span v-html="announcement.message"></span>
+          </div>
+        </article>        
+
+        <div class="columns is-fullhd">
+          <div class="column is-9">
+            <div class="app__search revealer has-text-left" :class="{ 'apply' : !loading }">
+              
+              <div v-if="!err && !sent && !sending">
+
+                <div class="content">
+                    <p class="has-text-white">Seleccione vehículo, servicio y sucursal por la que desea ser atendido.</p>
+                </div>
+
+                <div class="columns">
+                  <div class="column toggle-type is-half">
+                    <div class="columns is-mobile" value="vehicle_type">
+                      <div class="column button is-large" :class="{ 'is-white' : search.vehicle_type != 'auto' }" value="auto" @click="setToggleType">Auto</div>
+                      <div class="column button is-large" :class="{ 'is-white' : search.vehicle_type != 'vito' }" value="vito" @click="setToggleType">Vito</div>
+                      <div class="column button is-large" :class="{ 'is-white' : search.vehicle_type != 'sprinter' }" value="sprinter" @click="setToggleType">Sprinter</div>
+                      <div class="column button is-large" :class="{ 'is-white' : search.vehicle_type != 'truck' }" value="truck" @click="setToggleType">Camión</div>
+                    </div>
+                  </div>
+                  <div class="column is-half">
+                    <div class="other-actions">
+                      <a href="#" class="has-text-info is-size-7">Mi modelo no está</a>
+                    </div>
+                    <div class="button is-large is-white is-fullwidth" :class="{ 'accepted' : search.vehicle }">
+                      <span class="icon">
+                        <img src="/static/img/icon-car.png">
+                      </span>
+                      <ul class="is-pulled-left has-text-left">
+                        <li><span>Modelo Vehículo</span></li>
+                        <li>
+                          <span v-if="search.vehicle" v-html="search.vehicle.title"></span>
+                        </li>
+                      </ul>
+                    </div>
+                    <v-select v-model="search.vehicle" maxHeight="inherit" placeholder="Seleccione su modelo" :selected="search.vehicle" :options="filtroModelos" label="title">
+                      <template slot="no-options">
+                        Elija modelo
+                      </template>                
+                      <template slot="option" slot-scope="option">
+                        <div class="d-center">
+                          <strong>{{ option.city }}, {{ option.state }}</strong> {{ option.country }}<br>
+                          ({{ option.airport_code }}) {{ option.airport }}
+                        </div>
+                      </template>
+                      <template slot="selected-option" scope="option">
+                        <div class="selected d-center">
+                          <!-- {{ option.city }} ({{ option.airport_code }}) -->
+                        </div>
+                      </template>                  
+                    </v-select>                
+                  </div>
+                </div>
+
+                <div class="columns">
+                  <div class="column toggle-type is-half">
+                    <div class="columns is-mobile" value="service_type">
+                      <div class="column button is-large" :class="{ 'is-white' : search.service_type != 'auto' }" value="reparacion" @click="setToggleType">Turno Taller</div>
+                      <div class="column button is-large" :class="{ 'is-white' : search.service_type != 'reposiciones-seguros' }" value="reposiciones-seguros" @click="setToggleType">Seguros</div>
+                      <div class="column button is-large" :class="{ 'is-white' : search.service_type != 'repuestos' }" value="repuestos" @click="setToggleType">Repuestos</div>
+                    </div>
+                  </div>
+                  <div class="column is-half">
+                    <div class="button is-large is-white is-fullwidth" :class="{ 'accepted' : search.dealer }">
+                      <span class="icon">
+                        <img src="/static/img/icon-building.png">
+                      </span>
+                      <ul class="is-pulled-left has-text-left">
+                      <li><span>Sucursal</span></li>
+                      <li>
+                        <span v-if="search.arrival" class="has-text-info" v-html="search.arrival"></span>
+                        <!--span v-else class="has-text-grey" jsb-word="search-origin-placeholder"></span-->
+                      </li>
+                      </ul>
+                    </div>
+                    <v-select v-model="search.dealer" maxHeight="inherit" placeholder="Seleccione Sucursal" :filterable="false" :options="filtroDealers" label="nombre">
+                      <template slot="no-options">
+                        Seleccione Sucursal
+                      </template>                
+                      <template slot="option" slot-scope="option">
+                        <div class="d-center">
+                          <strong>{{ option.nombre }}</strong> {{ option.localidad }}<br>
+                          {{ option.direccion }}
+                        </div>
+                      </template>
+                      <template slot="selected-option" scope="option">
+                        <div class="selected d-center">
+                          <!-- {{ option.city }} ({{ option.airport_code }}) -->
+                        </div>
+                      </template>    
+                    </v-select>
+                  </div>
+                </div>
+
+                <div class="columns">
+                  <div class="column is-one-quarter">
+                    <div class="button is-large is-white is-fullwidth" :class="{ 'accepted' : validateName(search.full_name) }">
+                      <span class="icon"><img src="/static/img/pasengers_icon.png"></span>
+                      <ul class="is-pulled-left has-text-left">
+                        <li><span>Nombre</span></li>
+                        <li>
+                          <input type="text" v-model="search.full_name">
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="column is-one-quarter">
+                    <div class="button is-large is-white is-fullwidth" :class="{ 'accepted' : validateEmail(search.email) }">
+                      <span class="icon"><img src="/static/img/icono-email.svg"></span>
+                      <ul class="is-pulled-left has-text-left">
+                        <li><span>Email</span></li>
+                        <li>
+                          <input type="email" v-model="search.email">
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="column is-one-quarter">
+                    <div class="button is-large is-white is-fullwidth" :class="{ 'accepted' : validatePhone(search.phone) }">
+                    <span class="icon"><img src="/static/img/icono-telefono.svg"></span>
+                      <ul class="is-pulled-left has-text-left">
+                        <li><span>Teléfono</span></li>
+                        <li>
+                          <input type="phone" v-model="search.phone">
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                  <div class="column is-one-quarter disabled" :class="{ 'accepted' : search.repuesto }">
+                    <div class="button is-large is-white is-fullwidth">
+                      <span class="icon"><img src="/static/img/category_icon.svg"></span>
+                      <ul class="is-pulled-left has-text-left">
+                        <li><span>Repuesto</span></li>
+                        <li>
+                          <input type="text" v-model="search.full_name">
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="columns">
+                  <div class="column is-one-quarter turno-date">
+                    <div class="button is-large is-white is-fullwidth" @click="showDepartDate">
+                      <span class="icon">
+                        <img src="/static/img/calendar_icon.png">
+                      </span>
+                      <ul class="is-pulled-left has-text-left">
+                      <li><span>Fecha turno</span></li>
+                      <li>
+                      <span v-if="search.turno_date" class="has-text-success" v-html="search.turno_date"></span>
+                      <span v-else class="has-text-grey">aaaa/mm/dd</span>
+                      </li>
+                      </ul>
+                    </div>
+                    <vue-datepicker-local :local="$root.local" v-model="search.turno_date"></vue-datepicker-local>
+                  </div>
+                  <div class="column is-one-quarter turno-time">
+                    <div class="button is-large is-white is-fullwidth" @click="showReturnDate">
+                      <span class="icon">
+                        <img src="/static/img/calendar_icon.png">
+                      </span>
+                      <ul class="is-pulled-left has-text-left">
+                        <li><span>Horario</span></li>
+                        <li>
+                        <span v-if="search['return-date']" class="has-text-info" v-html="search['return-date']"></span>
+                        <span v-else class="has-text-grey" jsb-word="search-depart-placeholder"></span>
+                        </li>
+                      </ul>
+                    </div>
+                    <v-select v-model="search.turno_time" maxHeight="inherit" label="value">
+                      <template slot="no-options">
+                        Seleccione Sucursal
+                      </template>                
+                      <template slot="option" slot-scope="option">
+                        <div class="d-center">
+                          <strong>{{ option.value }}</strong>
+                        </div>
+                      </template>
+                      <template slot="selected-option" scope="option">
+                        <div class="selected d-center">
+                          <!-- {{ option.city }} ({{ option.airport_code }}) -->
+                        </div>
+                      </template>    
+                    </v-select>
+                  </div>
+                  <div class="column is-half has-text-right">
+                    <button class="button is-expanded" @click="submit" :disabled="!canShowResults">Solicitar turno</button>
+                  </div>                  
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="board">
+              <div class="content"><a href="whatsapp://send?phone=+54 9 11 5718-2736&amp;text=Hola, estoy interesado en obtener un turno en Klasse"><span class="fa fa-whatsapp has-text-white"></span> <span class="has-text-white">+54 9 11 5718-2736</span></a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="container dealers">
+        <div class="columns">
+          <div class="column has-text-left">
+            <h1 class="has-text-info">Conozca nuestras sucursales</h1>
+          </div>
+        </div>
+        <div class="columns is-multiline">
+          <div v-for="offer in offers" class="column is-3">
+            <a class="dealer" :href="offer.url" target="_blank">
+              <div class="bg-inline" :style="'background-image:url(' + offer.image + ')'">
+              </div>
+              <div class="has-text-left">
+                <h1 class="has-text-info" v-html="offer.title"></h1>
+                <h6 class="has-text-dark" v-html="offer.subtitle"></h6>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>
+
+<script>
+import axios from 'axios';
+import moment from 'moment';
+import qs from 'qs';
+import _ from 'lodash';
+import { snackbar } from '@/components/Snackbar';
+
+export default {
+  name: 'TurnosKlasse',
+  data () {
+    return {
+      err: false,
+      sent: false,
+      sending: false,
+      loading: true,
+      announcement: {},
+      models: [],
+      dealers: [],
+      schedules: [],
+      offers: {},
+      canShowResults: false,
+      search: {
+          vehicle: null,
+          vehicle_type: "auto",
+          service_type: "reparacion",
+          turno_date: null,
+          turno_time: null,
+          dealer: null
+      },
+      swiperOptions: {
+          navigation: {
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev"
+          }
+      }
+    }
+  },                 
+  mounted: function() {
+    const storage = JSON.parse(localStorage.getItem("storage"))
+    const that = this
+
+    axios.get('/static/dummy/mercedes-models.json').then(function(res){
+      that.models = res.data
+    })
+
+    axios.get('/static/dummy/mercedes-dealers.json').then(function(res){
+      that.dealers = res.data
+    })
+
+    this.loading = false
+  },
+  computed: {
+      filtroModelos: function() {
+          var t = this;
+          return _.filter(this.models, function(e) {
+              return e.vehicle_type === t.search.vehicle_type
+          })
+      },
+      filtroDealers: function() {
+          var t = this;
+          return _.filter(this.dealers, function(e) {
+              return e.servicios[t.search.vehicle_type] && e.servicios[t.search.vehicle_type].indexOf(t.search.service_type) > -1
+          })
+      }
+  },
+  watch: {
+      search: {
+          handler: function(t, e) {
+
+              this.handleSearchUpdate(t)
+          },
+          immediate: true,
+          deep: true
+      }
+  },
+  methods: {
+    handleStorageUpdate: function(t) {
+        console.log("updating storage from home"), this.offers = t.offers.collection, t.ads && t.ads.collection && (this.ads = t.ads.collection.slice(1))
+    },
+    handleSearchUpdate: function(t) {
+        this.canShowResults = !1, this.search.turno_date && (this.search.turno_date = p()(this.search.turno_date).format("YYYY-MM-DD")), t.turno_date && t.turno_time && t.dealer && this.validateEmail(t.email) && this.validateName(t.full_name) && this.validatePhone(t.phone) && (this.canShowResults = !0)
+    },
+    validateEmail: function(t) {
+        return /\S+@\S+\.\S+/.test(t)
+    },
+    validateName: function(t) {
+        return t && t.length
+    },
+    validatePhone: function(t) {
+        return /\d+/.test(t)
+    },
+    setToggleType: function(t) {
+        t.type;
+        var e = t.target;
+        this.search[e.parentNode.getAttribute("value")] = e.getAttribute("value")
+    },
+    setDealer: function(t) {
+        t && "object" == (void 0 === t ? "undefined" : d()(t)) && (this.schedules = JSON.parse(u()(t.horarios)))
+    },
+    inputModel: function() {
+        var t = prompt("Por favor ingrese su modelo a mano.", "");
+        null == t || "" == t || (this.search.vehicle || (this.search.vehicle = {}), this.search.vehicle.title = t)
+    },
+    solicitarNuevo: function() {
+        this.err = !1, this.sent = !1, this.search.vehicle = null, this.search.vehicle_type = "auto", this.search.service_type = "reparacion", this.search.turno_date = null, this.search.turno_time = null, this.search.full_name = null, this.search.email = null, this.search.phone = null, this.search.repuesto = null, this.search.dealer = null
+    },
+    showDepartDate: function(t) {
+        t.type, t.target;
+        document.querySelector(".turno-date input").click()
+    },
+    showReturnDate: function(t) {
+        t.type, t.target;
+        document.querySelector(".turno-time input").click()
+    },
+    showPassengers: function() {
+        this.passengersToggle = !this.passengersToggle
+    },
+    showCategory: function() {},
+    submit: function(t) {
+        var e = this,
+            s = (t.type, t.target, this);
+        this.sending = !0, n.a.post("https://api.automovilshop.com/pilot", this.search).then(function(t) {
+            e.sending = !1, "success" === t.data.status ? s.sent = !0 : s.err = !0
+        }).catch(function(t) {
+            console.log(t)
+        })
+    }
+  }
+}
+</script>

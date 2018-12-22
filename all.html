@@ -1,0 +1,935 @@
+<html class="TurnosKlasse">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="/static/manifest.json">
+    <title>Klasse</title>
+    <meta name="twitter:card" value="summary">
+    <meta property="og:title" content="Turnos Klasse">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://turnosklasse.com.ar">
+    <meta property="og:image" content="https://turnosklasse.com.ar/static/img/logo.png">
+    <meta property="og:description" content="La plataforma web de turnos online de Klasse Concesionario Oficial Mercedes-Benz www.TurnosKlasse.com.ar">
+    <meta property="apiurl" content="/static/dummy/">
+    <link rel="shortcut icon" href="/static/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="/static/favicon.ico" type="image/x-icon">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js"></script>
+    <script type="text/javascript" src="https://sys.iclientes.com/6953053e345a4405276f5679d8e75b94.js"></script>
+    <link href="https://sys.iclientes.com/css/bootstrap360.min.css" rel="stylesheet">
+    <style>
+        .themeColorTitle {
+            background-color: #011419;
+        }
+    </style>
+    <link href="https://sys.iclientes.com/css/style.min.css" rel="stylesheet">
+    <style type="text/css"></style>
+    <style type="text/css"></style>
+    <style type="text/css"></style>
+    <style type="text/css"></style>
+    <style type="text/css">
+        .rtl {
+            direction: rtl;
+        }
+        
+        .vdp-datepicker {
+            position: relative;
+            text-align: left;
+        }
+        
+        .vdp-datepicker * {
+            box-sizing: border-box;
+        }
+        
+        .vdp-datepicker__calendar {
+            position: absolute;
+            z-index: 100;
+            background: #fff;
+            width: 300px;
+            border: 1px solid #ccc;
+        }
+        
+        .vdp-datepicker__calendar header {
+            display: block;
+            line-height: 40px;
+        }
+        
+        .vdp-datepicker__calendar header span {
+            display: inline-block;
+            text-align: center;
+            width: 71.42857142857143%;
+            float: left;
+        }
+        
+        .vdp-datepicker__calendar header .prev,
+        .vdp-datepicker__calendar header .next {
+            width: 14.285714285714286%;
+            float: left;
+            text-indent: -10000px;
+            position: relative;
+        }
+        
+        .vdp-datepicker__calendar header .prev:after,
+        .vdp-datepicker__calendar header .next:after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            -webkit-transform: translateX(-50%) translateY(-50%);
+            transform: translateX(-50%) translateY(-50%);
+            border: 6px solid transparent;
+        }
+        
+        .vdp-datepicker__calendar header .prev:after {
+            border-right: 10px solid #000;
+            margin-left: -5px;
+        }
+        
+        .vdp-datepicker__calendar header .prev.disabled:after {
+            border-right: 10px solid #ddd;
+        }
+        
+        .vdp-datepicker__calendar header .next:after {
+            border-left: 10px solid #000;
+            margin-left: 5px;
+        }
+        
+        .vdp-datepicker__calendar header .next.disabled:after {
+            border-left: 10px solid #ddd;
+        }
+        
+        .vdp-datepicker__calendar header .prev:not(.disabled),
+        .vdp-datepicker__calendar header .next:not(.disabled),
+        .vdp-datepicker__calendar header .up:not(.disabled) {
+            cursor: pointer;
+        }
+        
+        .vdp-datepicker__calendar header .prev:not(.disabled):hover,
+        .vdp-datepicker__calendar header .next:not(.disabled):hover,
+        .vdp-datepicker__calendar header .up:not(.disabled):hover {
+            background: #eee;
+        }
+        
+        .vdp-datepicker__calendar .disabled {
+            color: #ddd;
+            cursor: default;
+        }
+        
+        .vdp-datepicker__calendar .flex-rtl {
+            display: flex;
+            width: inherit;
+            flex-wrap: wrap;
+        }
+        
+        .vdp-datepicker__calendar .cell {
+            display: inline-block;
+            padding: 0 5px;
+            width: 14.285714285714286%;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid transparent;
+        }
+        
+        .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day,
+        .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month,
+        .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year {
+            cursor: pointer;
+        }
+        
+        .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).day:hover,
+        .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).month:hover,
+        .vdp-datepicker__calendar .cell:not(.blank):not(.disabled).year:hover {
+            border: 1px solid #4bd;
+        }
+        
+        .vdp-datepicker__calendar .cell.selected {
+            background: #4bd;
+        }
+        
+        .vdp-datepicker__calendar .cell.selected:hover {
+            background: #4bd;
+        }
+        
+        .vdp-datepicker__calendar .cell.selected.highlighted {
+            background: #4bd;
+        }
+        
+        .vdp-datepicker__calendar .cell.highlighted {
+            background: #cae5ed;
+        }
+        
+        .vdp-datepicker__calendar .cell.highlighted.disabled {
+            color: #a3a3a3;
+        }
+        
+        .vdp-datepicker__calendar .cell.grey {
+            color: #888;
+        }
+        
+        .vdp-datepicker__calendar .cell.grey:hover {
+            background: inherit;
+        }
+        
+        .vdp-datepicker__calendar .cell.day-header {
+            font-size: 75%;
+            white-space: nowrap;
+            cursor: inherit;
+        }
+        
+        .vdp-datepicker__calendar .cell.day-header:hover {
+            background: inherit;
+        }
+        
+        .vdp-datepicker__calendar .month,
+        .vdp-datepicker__calendar .year {
+            width: 33.333%;
+        }
+        
+        .vdp-datepicker__clear-button,
+        .vdp-datepicker__calendar-button {
+            cursor: pointer;
+            font-style: normal;
+        }
+        
+        .vdp-datepicker__clear-button.disabled,
+        .vdp-datepicker__calendar-button.disabled {
+            color: #999;
+            cursor: default;
+        }
+    </style>
+    <style type="text/css">
+        .v-select {
+            position: relative;
+            font-family: inherit
+        }
+        
+        .v-select,
+        .v-select * {
+            box-sizing: border-box
+        }
+        
+        .v-select[dir=rtl] .vs__actions {
+            padding: 0 3px 0 6px
+        }
+        
+        .v-select[dir=rtl] .dropdown-toggle .clear {
+            margin-left: 6px;
+            margin-right: 0
+        }
+        
+        .v-select[dir=rtl] .selected-tag .close {
+            margin-left: 0;
+            margin-right: 2px
+        }
+        
+        .v-select[dir=rtl] .dropdown-menu {
+            text-align: right
+        }
+        
+        .v-select .open-indicator {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            pointer-events: all;
+            opacity: 1;
+            width: 12px
+        }
+        
+        .v-select .open-indicator,
+        .v-select .open-indicator:before {
+            transition: all .15s cubic-bezier(1, -.115, .975, .855);
+            transition-timing-function: cubic-bezier(1, -.115, .975, .855)
+        }
+        
+        .v-select .open-indicator:before {
+            border-color: rgba(60, 60, 60, .5);
+            border-style: solid;
+            border-width: 3px 3px 0 0;
+            content: "";
+            display: inline-block;
+            height: 10px;
+            width: 10px;
+            vertical-align: text-top;
+            transform: rotate(133deg);
+            box-sizing: inherit
+        }
+        
+        .v-select.open .open-indicator:before {
+            transform: rotate(315deg)
+        }
+        
+        .v-select.loading .open-indicator {
+            opacity: 0
+        }
+        
+        .v-select .dropdown-toggle {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            display: flex;
+            padding: 0 0 4px;
+            background: none;
+            border: 1px solid rgba(60, 60, 60, .26);
+            border-radius: 4px;
+            white-space: normal
+        }
+        
+        .v-select .vs__selected-options {
+            display: flex;
+            flex-basis: 100%;
+            flex-grow: 1;
+            flex-wrap: wrap;
+            padding: 0 2px;
+            position: relative
+        }
+        
+        .v-select .vs__actions {
+            display: flex;
+            align-items: stretch;
+            padding: 0 6px 0 3px
+        }
+        
+        .v-select .dropdown-toggle .clear {
+            font-size: 23px;
+            font-weight: 700;
+            line-height: 1;
+            color: rgba(60, 60, 60, .5);
+            padding: 0;
+            border: 0;
+            background-color: transparent;
+            cursor: pointer;
+            margin-right: 6px
+        }
+        
+        .v-select.searchable .dropdown-toggle {
+            cursor: text
+        }
+        
+        .v-select.unsearchable .dropdown-toggle {
+            cursor: pointer
+        }
+        
+        .v-select.open .dropdown-toggle {
+            border-bottom-color: transparent;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0
+        }
+        
+        .v-select .dropdown-menu {
+            display: block;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            z-index: 1000;
+            min-width: 160px;
+            padding: 5px 0;
+            margin: 0;
+            width: 100%;
+            overflow-y: scroll;
+            border: 1px solid rgba(0, 0, 0, .26);
+            box-shadow: 0 3px 6px 0 rgba(0, 0, 0, .15);
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            text-align: left;
+            list-style: none;
+            background: #fff
+        }
+        
+        .v-select .no-options {
+            text-align: center
+        }
+        
+        .v-select .selected-tag {
+            display: flex;
+            align-items: center;
+            background-color: #f0f0f0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            color: #333;
+            line-height: 1.42857143;
+            margin: 4px 2px 0;
+            padding: 0 .25em;
+            transition: opacity .25s
+        }
+        
+        .v-select.single .selected-tag {
+            background-color: transparent;
+            border-color: transparent
+        }
+        
+        .v-select.single.open .selected-tag {
+            position: absolute;
+            opacity: .4
+        }
+        
+        .v-select.single.searching .selected-tag {
+            display: none
+        }
+        
+        .v-select .selected-tag .close {
+            margin-left: 2px;
+            font-size: 1.25em;
+            appearance: none;
+            padding: 0;
+            cursor: pointer;
+            background: 0 0;
+            border: 0;
+            font-weight: 700;
+            line-height: 1;
+            color: #000;
+            text-shadow: 0 1px 0 #fff;
+            filter: alpha(opacity=20);
+            opacity: .2
+        }
+        
+        .v-select.single.searching:not(.open):not(.loading) input[type=search] {
+            opacity: .2
+        }
+        
+        .v-select input[type=search]::-webkit-search-cancel-button,
+        .v-select input[type=search]::-webkit-search-decoration,
+        .v-select input[type=search]::-webkit-search-results-button,
+        .v-select input[type=search]::-webkit-search-results-decoration {
+            display: none
+        }
+        
+        .v-select input[type=search]::-ms-clear {
+            display: none
+        }
+        
+        .v-select input[type=search],
+        .v-select input[type=search]:focus {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            line-height: 1.42857143;
+            font-size: 1em;
+            display: inline-block;
+            border: 1px solid transparent;
+            border-left: none;
+            outline: none;
+            margin: 4px 0 0;
+            padding: 0 7px;
+            max-width: 100%;
+            background: none;
+            box-shadow: none;
+            flex-grow: 1;
+            width: 0
+        }
+        
+        .v-select.unsearchable input[type=search] {
+            opacity: 0
+        }
+        
+        .v-select.unsearchable input[type=search]:hover {
+            cursor: pointer
+        }
+        
+        .v-select li {
+            line-height: 1.42857143
+        }
+        
+        .v-select li>a {
+            display: block;
+            padding: 3px 20px;
+            clear: both;
+            color: #333;
+            white-space: nowrap
+        }
+        
+        .v-select li:hover {
+            cursor: pointer
+        }
+        
+        .v-select .dropdown-menu .active>a {
+            color: #333;
+            background: rgba(50, 50, 50, .1)
+        }
+        
+        .v-select .dropdown-menu>.highlight>a {
+            background: #5897fb;
+            color: #fff
+        }
+        
+        .v-select .highlight:not(:last-child) {
+            margin-bottom: 0
+        }
+        
+        .v-select .spinner {
+            align-self: center;
+            opacity: 0;
+            font-size: 5px;
+            text-indent: -9999em;
+            overflow: hidden;
+            border-top: .9em solid hsla(0, 0%, 39%, .1);
+            border-right: .9em solid hsla(0, 0%, 39%, .1);
+            border-bottom: .9em solid hsla(0, 0%, 39%, .1);
+            border-left: .9em solid rgba(60, 60, 60, .45);
+            transform: translateZ(0);
+            animation: vSelectSpinner 1.1s infinite linear;
+            transition: opacity .1s
+        }
+        
+        .v-select .spinner,
+        .v-select .spinner:after {
+            border-radius: 50%;
+            width: 5em;
+            height: 5em
+        }
+        
+        .v-select.disabled .dropdown-toggle,
+        .v-select.disabled .dropdown-toggle .clear,
+        .v-select.disabled .dropdown-toggle input,
+        .v-select.disabled .open-indicator,
+        .v-select.disabled .selected-tag .close {
+            cursor: not-allowed;
+            background-color: #f8f8f8
+        }
+        
+        .v-select.loading .spinner {
+            opacity: 1
+        }
+        
+        @-webkit-keyframes vSelectSpinner {
+            0% {
+                transform: rotate(0deg)
+            }
+            to {
+                transform: rotate(1turn)
+            }
+        }
+        
+        @keyframes vSelectSpinner {
+            0% {
+                transform: rotate(0deg)
+            }
+            to {
+                transform: rotate(1turn)
+            }
+        }
+        
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity .15s cubic-bezier(1, .5, .8, 1)
+        }
+        
+        .fade-enter,
+        .fade-leave-to {
+            opacity: 0
+        }
+    </style>
+</head>
+
+<body>
+    <div id="mobileBubble" class="hidden-sm hidden-md hidden-lg hidden-xl" style="display: none;">
+        <span>Chat Online</span>
+        <div class="themeColorTitle"><img src="https://sys.iclientes.com/images/bubble.png" width="48" height="48"></div>
+    </div>
+    <div class="chatrvya360" style="">
+        <div class="titleicvya360 themeColorTitle" id="xTitle">
+            <img id="img_operador" style="display: none;" class="remoteProfile" width="48" height="48">
+            <div class="remoteNme">
+                <h4 id="nombre_operador">Mercedes-Benz</h4>
+                <span>Turnos online</span>
+            </div>
+            <div id="chatToggle">
+                <img id="max" src="https://sys.iclientes.com/images/flecha-up.png" style="display: none;">
+                <img id="min" src="https://sys.iclientes.com/images/flecha.png" style="">
+            </div>
+        </div>
+
+        <div id="chatBody" class="chatBody" style="">
+            <div class="msgBody">
+                <div class="msgBodyMensajes">
+                    <div class="msgRow">
+                        <div class="remoteMsgTri themeColorTri"></div>
+                        <div class="remoteMsg themeColorMsg">Hola, Buenas tardes. ¿Cómo puedo ayudarte? </div>
+                    </div>
+                </div>
+                <div class="msgStatus" style="display: none;">
+                    <span id="span_op">Mercedes-Benz</span> está escribiendo..
+                </div>
+            </div>
+            <div class="msgInputBox">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <input class="form-control" autocomplete="off" name="message" id="msgInput" placeholder="Escriba aquí su consulta..." maxlength="100" type="text">
+                            <div class="input-group-addon msgSend hidden-sm hidden-md hidden-lg hidden-xl" id="msgInputBtn" onclick="inputCallback()">&nbsp;&gt;&nbsp;</div>
+                        </div>
+                    </div>
+                </form>
+                <div class="vyaLogo">
+                    <a target="_blank" href="https://www.iclientes.com/"><span>iClientes</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <style>
+        .container-spinner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center
+        }
+        
+        .loaders svg.spinner {
+            width: 40px;
+            height: 40px;
+            viewBox: 0 0 40 40
+        }
+        
+        .loaders svg.spinner circle {
+            fill: transparent;
+            stroke: #209cee;
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 125.6;
+            -webkit-transform-origin: 20px 20px 0;
+            -moz-transform-origin: 20px 20px 0;
+            -ms-transform-origin: 20px 20px 0;
+            -o-transform-origin: 20px 20px 0;
+            transform-origin: 20px 20px 0;
+            -webkit-animation: spinner 2s linear infinite;
+            -moz-animation: spinner 2s linear infinite;
+            -ms-animation: spinner 2s linear infinite;
+            -o-animation: spinner 2s linear infinite;
+            animation: spinner 2s linear infinite
+        }
+        
+        @keyframes spinner {
+            0% {
+                transform: rotate(0);
+                stroke-dashoffset: 26.4
+            }
+            50% {
+                transform: rotate(720deg);
+                stroke-dashoffset: 125.6
+            }
+            100% {
+                transform: rotate(1080deg);
+                stroke-dashoffset: 26.4
+            }
+        }
+    </style>
+    <link href="/static/css/app.e750903811557644273163d5a2ef92d9.css" rel="stylesheet">
+    <div id="app">
+        <nav class="navbar is-transparent" style="">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a href="/" class="navbar-item router-link-exact-active router-link-active"><img src="/static/img/logo.jpeg"> <span class="is-size-5 has-text-weight-bold">Klasse</span> <span class="is-size-6 is-slogan is-capitalize">Cigliutti Guerini</span></a>
+                    <div data-target="navbarExampleTransparentExample" class="navbar-burger burger"><span></span> <span></span> <span></span></div>
+                </div>
+                <div id="navbarExampleTransparentExample" class="navbar-menu">
+                    <div class="navbar-start"><a href="/" class="navbar-item router-link-exact-active router-link-active">Turnos</a> <a href="/dealers" class="navbar-item">Sucursales</a></div>
+                </div>
+            </div>
+        </nav>
+        <section class="hero">
+            <div class="hero-body">
+                <div class="container">
+                    <article class="message is-success">
+                        <div class="message-body has-text-left"><span>Bienvenido a la plataforma de turnos online exclusiva para clientes <strong>Mercedes-Benz</strong>.<br>Completa la información para solicitar un turno.</span></div>
+                    </article>
+                    <div class="columns is-fullhd">
+                        <div class="column is-9">
+                            <div class="app__search revealer has-text-left apply">
+                                <!---->
+                                <div>
+                                    <div class="content">
+                                        <p class="has-text-white">Seleccione vehículo, servicio y sucursal por la que desea ser atendido.</p>
+                                    </div>
+                                    <div class="columns">
+                                        <div class="column toggle-type is-half">
+                                            <div value="vehicle_type" class="columns is-mobile">
+                                                <div value="auto" class="column button is-large">Auto</div>
+                                                <div value="vito" class="column button is-large is-white">Vito</div>
+                                                <div value="sprinter" class="column button is-large is-white">Sprinter</div>
+                                                <div value="truck" class="column button is-large is-white">Camión</div>
+                                            </div>
+                                        </div>
+                                        <div class="column is-half">
+                                            <div class="other-actions"><a href="#" class="has-text-info is-size-7">Mi modelo no está</a></div>
+                                            <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/icon-car.png"></span>
+                                                <ul class="is-pulled-left has-text-left">
+                                                    <li><span>Modelo Vehículo</span></li>
+                                                    <li>
+                                                        <!---->
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div dir="auto" class="dropdown v-select single searchable">
+                                                <div class="dropdown-toggle">
+                                                    <div class="vs__selected-options">
+                                                        <input autocomplete="off" placeholder="Seleccione su modelo" role="combobox" aria-label="Search for option" class="form-control" type="search">
+                                                    </div>
+                                                    <div class="vs__actions">
+                                                        <button type="button" title="Clear selection" class="clear" style="display: none;"><span aria-hidden="true">×</span></button> <i role="presentation" class="open-indicator"></i>
+                                                        <div class="spinner" style="display: none;">Loading...</div>
+                                                    </div>
+                                                </div>
+                                                <!---->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="columns">
+                                        <div class="column toggle-type is-half">
+                                            <div value="service_type" class="columns is-mobile">
+                                                <div value="reparacion" class="column button is-large">Turno Taller</div>
+                                                <div value="reposiciones-seguros" class="column button is-large is-white">Seguros</div>
+                                                <div value="repuestos" class="column button is-large is-white">Repuestos</div>
+                                            </div>
+                                        </div>
+                                        <div class="column is-half">
+                                            <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/icon-building.png"></span>
+                                                <ul class="is-pulled-left has-text-left">
+                                                    <li><span>Sucursal</span></li>
+                                                    <li>
+                                                        <!---->
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div dir="auto" class="dropdown v-select single searchable">
+                                                <div class="dropdown-toggle">
+                                                    <div class="vs__selected-options">
+                                                        <input autocomplete="off" placeholder="Seleccione Sucursal" role="combobox" aria-label="Search for option" class="form-control" type="search">
+                                                    </div>
+                                                    <div class="vs__actions">
+                                                        <button type="button" title="Clear selection" class="clear" style="display: none;"><span aria-hidden="true">×</span></button> <i role="presentation" class="open-indicator"></i>
+                                                        <div class="spinner" style="display: none;">Loading...</div>
+                                                    </div>
+                                                </div>
+                                                <!---->
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="columns">
+                                        <div class="column is-one-quarter">
+                                            <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/pasengers_icon.png"></span>
+                                                <ul class="is-pulled-left has-text-left">
+                                                    <li><span>Nombre</span></li>
+                                                    <li>
+                                                        <input class="has-text-info" type="text">
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="column is-one-quarter">
+                                            <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/icono-email.svg"></span>
+                                                <ul class="is-pulled-left has-text-left">
+                                                    <li><span>Email</span></li>
+                                                    <li>
+                                                        <input class="has-text-info" type="email">
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="column is-one-quarter category">
+                                            <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/icono-telefono.svg"></span>
+                                                <ul class="is-pulled-left has-text-left">
+                                                    <li><span>Teléfono</span></li>
+                                                    <li>
+                                                        <input class="has-text-info" type="phone">
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="column is-one-quarter disabled">
+                                            <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/category_icon.svg"></span>
+                                                <ul class="is-pulled-left has-text-left">
+                                                    <li><span>Repuesto</span></li>
+                                                    <li>
+                                                        <input class="has-text-info" type="text">
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="columns">
+                                        <div class="column is-one-quarter turno-date">
+                                            <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/calendar_icon.png"></span>
+                                                <ul class="is-pulled-left has-text-left">
+                                                    <li><span>Fecha turno</span></li>
+                                                    <li><span class="has-text-grey">aaaa-mm-dd</span></li>
+                                                </ul>
+                                            </div>
+                                            <div class="datepicker">
+                                                <input readonly="readonly" class="">
+                                                <a class="datepicker-close"></a>
+                                                <!---->
+                                            </div>
+                                        </div>
+                                        <div class="column is-one-quarter turno-time">
+                                            <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/time_icon.png"></span>
+                                                <ul class="is-pulled-left has-text-left">
+                                                    <li><span>Horario</span></li>
+                                                    <li>
+                                                        <!---->
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div dir="auto" class="dropdown v-select single searchable">
+                                                <div class="dropdown-toggle">
+                                                    <div class="vs__selected-options">
+                                                        <input autocomplete="off" placeholder="hh:mm" role="combobox" aria-label="Search for option" class="form-control" type="search">
+                                                    </div>
+                                                    <div class="vs__actions">
+                                                        <button type="button" title="Clear selection" class="clear" style="display: none;"><span aria-hidden="true">×</span></button> <i role="presentation" class="open-indicator"></i>
+                                                        <div class="spinner" style="display: none;">Loading...</div>
+                                                    </div>
+                                                </div>
+                                                <!---->
+                                            </div>
+                                        </div>
+                                        <div class="column is-half has-text-right">
+                                            <button disabled="disabled" class="button is-expanded">Solicitar turno</button>
+                                        </div>
+                                    </div>
+                                    <div class="content">
+                                        <!---->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="board">
+                                <div class="content"><a href="whatsapp://send?phone=+54 9 11 5718-2736&amp;text=Hola, estoy interesado en obtener un turno en Klasse"><span class="fa fa-whatsapp has-text-white"></span> <span class="has-text-white">+54 9 11 5718-2736</span></a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container dealers">
+                        <div class="columns">
+                            <div class="column has-text-left">
+                                <h1 class="has-text-info">Conozca nuestras sucursales</h1></div>
+                        </div>
+                        <div class="columns is-multiline">
+                            <div class="column is-3">
+                                <a href="/dealers/klasse-bonzi" class="dealer">
+                                    <div class="has-background-image" style="background-image: url(&quot;/static/dummy/img/dealers/Sucursal_4.jpg&quot;);"></div>
+                                    <div class="has-text-left">
+                                        <h1 class="has-text-info">Taller La Matanza</h1>
+                                        <h6 class="has-text-dark">Monseñor Bufano, 8338, Aldo Bonzi.</h6></div>
+                                </a>
+                            </div>
+                            <div class="column is-3">
+                                <a href="/dealers/klasse-nunez" class="dealer">
+                                    <div class="has-background-image" style="background-image: url(&quot;/static/dummy/img/dealers/SUCURSAL_2.jpg&quot;);"></div>
+                                    <div class="has-text-left">
+                                        <h1 class="has-text-info">Taller Nuñez</h1>
+                                        <h6 class="has-text-dark">Grecia 3633, Nuñez, CABA</h6></div>
+                                </a>
+                            </div>
+                            <div class="column is-3">
+                                <a href="/dealers/klasse-devoto" class="dealer">
+                                    <div class="has-background-image" style="background-image: url(&quot;/static/dummy/img/dealers/Sucursal_1.jpg&quot;);"></div>
+                                    <div class="has-text-left">
+                                        <h1 class="has-text-info">Taller Devoto</h1>
+                                        <h6 class="has-text-dark">Av. Francisco Beiro 4764, Villa Devoto, CABA</h6></div>
+                                </a>
+                            </div>
+                            <div class="column is-3">
+                                <a href="/dealers/klasse-olivos" class="dealer">
+                                    <div class="has-background-image" style="background-image: url(&quot;/static/dummy/img/dealers/sucursal_3.jpg&quot;);"></div>
+                                    <div class="has-text-left">
+                                        <h1 class="has-text-info">Taller Vicente Lopez</h1>
+                                        <h6 class="has-text-dark">Av Libertador 1802, Vicente Lopez, Olivos</h6></div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="footer" style="">
+            <div class="container">
+                <hr>
+                <h4><span jsb-word="footer-title" class="is-size-6"></span></h4>
+                <div class="columns">
+                    <div class="column has-text-left"><strong>Herramientas</strong>
+                        <p><a href="/" class="router-link-exact-active router-link-active">Turnos</a></p>
+                        <p><a href="/dealers" class="">Sucursales</a></p>
+                    </div>
+                    <div class="column has-text-left"><strong>Empresa</strong>
+                        <p><a href="#" data-target="modal-terminos" class="modal-button">Términos y condiciones</a></p>
+                    </div>
+                    <div class="column has-text-left"><strong>Redes</strong>
+                        <p><a href="https://facebook.com/KlasseMercedesBenz" target="_blank"><span class="icon"><i class="fa fa-facebook"></i></span> /KlasseMercedesBenz
+            </a></p>
+                        <p><a href="https://instagram.com/klassemb" target="_blank"><span class="icon"><i class="fa fa-instagram"></i></span> @klassemb
+            </a></p>
+                    </div>
+                </div>
+                <div class="has-text-center is-size-6"><strong>2018 Klasse · Cigliutti Guerini </strong> <span> Todos los derechos reservados</span></div>
+            </div>
+        </div>
+        <div id="modal-contact" class="modal">
+            <div class="modal-background"></div>
+            <div class="modal-card has-background-white">
+                <button aria-label="close" class="delete"></button>
+                <div class="section">
+                    <div class="fixed has-text-centered">
+                        <h1 class="is-size-3 has-text-weight-semibold">Klasse Cigliutti Guerini</h1>
+                        <h4 class="is-size-6">Formulario de contacto</h4></div>
+                    <div class="has-text-centered">
+                        <div class="field">
+                            <input name="full_name" placeholder="Nombre completo" required="required" class="input" type="text">
+                        </div>
+                        <div class="field">
+                            <input name="email" placeholder="Email" required="required" class="input" type="text">
+                        </div>
+                        <div class="field">
+                            <input name="phone" placeholder="Teléfono" required="required" class="input" type="text">
+                        </div>
+                        <div class="field">
+                            <textarea name="comment" required="required" placeholder="Explique brevemente como podemos ayudarle" class="input textarea"></textarea>
+                        </div> <a class="button is-fullwidth">Enviar consulta</a>
+                        <hr> <span class="is-size-7"><span jsb-word="accept-terms-app"></span>
+                        <a href="/terms" class="" jsb-word="terms"></a>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="modal-terminos" class="modal">
+            <div class="modal-background"></div>
+            <button aria-label="close" class="delete is-large"></button>
+            <div class="modal-content has-background-white">
+                <div class="section">
+                    <div class="has-text-centered">
+                        <h1 class="is-size-4 has-text-weight-semibold">Klasse</h1>
+                        <h1 class="is-size-5 has-text-weight-semibold">Cigliutti Guerini</h1>
+                        <h4 class="is-size-6">Términos y Condiciones</h4></div>
+                    <div class="has-text-left">
+                        <h1 class="garantia--h">Términos y Condiciones de uso</h1>
+                        <h5 class="titlesection"></h5>
+                        <p>La plataforma web de turnos online de Klasse Concesionario Oficial Mercedes-Benz www.TurnosKlasse.com.ar, a partir de ahora "La plataforma" es de uso exclusivo para clientes Mercedes-Benz de la república Argentina.</p>
+                        <p>La plataforma es de uso estrictamente de contacto para establecer un vínculo directo con el asesor comercial que lo contactará a la brevedad para confirmar el turno y el horario deseado, no generando un compromiso ni obligación de turno por la selección realizada hasta en tanto el asesor comercial no se contacte de manera directa. </p>
+                        <p>Ante cualquier consulta, necesidad o sugerencia puede contactarnos de forma directa a <a href="mailto:mercedesbenz@atencionweb.com">MercedesBenz@atencionweb.com</a> o por telefóno al número <a href="tel:+54 11 5718 2736">+54 11 5718 2736</a></p>
+                        <p></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="app__snackbar"></div>
+    <script type="text/javascript" src="/static/js/manifest.9d31e88e2d58af82b66e.js"></script>
+    <script type="text/javascript" src="/static/js/vendor.4aeb6523acde58a890ed.js"></script>
+    <script type="text/javascript" src="/static/js/app.d7f3f98993351a7bb312.js"></script>
+    <audio autoplay="autoplay" style="display:none;">
+        <source src="https://sys.iclientes.com/s1.mp3">
+        <source src="https://sys.iclientes.com/s1.ogg">
+        <embed src="https://sys.iclientes.com/s1.mp3" autostart="true" loop="false" class="playSound" hidden="true">
+    </audio>
+</body>
+
+</html>

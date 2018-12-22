@@ -1,0 +1,152 @@
+[{
+	"slug":"klasse-nunez",
+	"nombre":"Klasse - NUÑEZ",
+	"imagen": "/static/dummy/img/dealers/SUCURSAL_2.jpg",
+	"email": "mercedesbenz@atencionweb.com",
+	"direccion": "Grecia 3633, Nuñez",
+	"localidad": "CABA",
+	"lat": "-34.546130",
+	"lng": "-58.463290",
+	"telefono": "4702-2095",
+	"whatsapp": "+54 9 11 5718-2736",
+	"horarios":
+	[
+		"9:00",
+		"10:00",
+		"11:00",
+		"12:00",
+		"14:00",
+		"15:00",
+		"16:00",
+		"17:00"
+	],
+	"servicios":
+	{
+		"auto": 
+		[
+			"reparacion",
+			"reposiciones-seguros",
+			"repuestos"
+		],
+		"vito": 
+		[
+			"reparacion",
+			"reposiciones-seguros",
+			"repuestos"
+		],
+		"sprinter": 
+		[
+			"repuestos"
+		]
+	}
+},
+{
+	"slug":"klasse-devoto",
+	"nombre":"Klasse - DEVOTO",
+	"imagen": "/static/dummy/img/dealers/Sucursal_1.jpg",	
+	"email": "mercedesbenz@atencionweb.com",
+	"direccion": "Av. Francisco Beiro 4764, Villa Devoto",
+	"localidad": "CABA",
+	"lat": "-34.599860",
+	"lng": "-58.502170",
+	"telefono": "4567-4549",
+	"whatsapp": "+54 9 11 5718-2736",
+	"horarios":
+	[
+		"9:00",
+		"10:00",
+		"11:00",
+		"12:00",
+		"14:00",
+		"15:00",
+		"16:00",
+		"17:00"
+	],	
+	"servicios":
+	{
+		"auto": 
+		[
+			"reparacion",
+			"repuestos"
+		],
+		"vito": 
+		[
+			"servicios"
+		]
+	}
+},
+{
+	"slug":"klasse-olivos",
+	"nombre":"Klasse - VICENTE LOPEZ",
+	"imagen": "/static/dummy/img/dealers/sucursal_3.jpg",
+	"email": "mercedesbenz@atencionweb.com",
+	"direccion": "Av. Libertador 1802, Olivos",
+	"localidad": "Martinez",
+	"lat": "-34.507140",
+	"lng": "-58.479860",
+	"telefono": "+54 9 11 2189-0233",
+	"whatsapp": "+54 9 11 5718-2736",
+	"horarios":
+	[
+		"9:00",
+		"10:00",
+		"11:00",
+		"12:00",
+		"14:00",
+		"15:00",
+		"16:00",
+		"17:00"
+	],	
+	"servicios":
+	{
+		"auto": 
+		[
+			"reparacion"
+		],
+		"vito": [
+			"reparacion"
+		]
+	}
+},
+{
+	"slug":"klasse-bonzi",
+	"nombre":"Klasse - ALDO BONZI",
+	"imagen": "/static/dummy/img/dealers/Sucursal_4.jpg",	
+	"email": "mercedesbenz@atencionweb.com",
+	"direccion": "Monseñor Bufano 8338, Aldo Bonzi",
+	"localidad": "Gerli",
+	"lat": "-34.722390",
+	"lng": "-58.512010",
+	"telefono": "01112314444",
+	"whatsapp": "+54 9 11 5718-2736",
+	"horarios":
+	[
+		"9:00",
+		"10:00",
+		"11:00",
+		"12:00",
+		"14:00",
+		"15:00",
+		"16:00",
+		"17:00"
+	],	
+	"servicios":
+	{
+		"vito": 
+		[
+			"reparacion",
+			"reposiciones-seguros",
+			"repuestos"
+		],
+		"sprinter": [
+			"reparacion",
+			"reposiciones-seguros",
+			"repuestos"
+		],
+		"truck": [
+			"reparacion",
+			"reposiciones-seguros",
+			"repuestos"
+		]
+	}
+}]

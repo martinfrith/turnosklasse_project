@@ -1,0 +1,215 @@
+<section class="hero">
+    <div class="hero-body">
+        <div class="container">
+            <article class="message is-success">
+                <div class="message-body has-text-left"><span>Bienvenido a la plataforma de turnos online exclusiva para clientes <strong>Mercedes-Benz</strong>.<br>Completa la información para solicitar un turno.</span></div>
+            </article>
+            <div class="columns is-fullhd">
+                <div class="column is-9">
+                    <div class="app__search revealer has-text-left apply">
+                        <!---->
+                        <div>
+                            <div class="content">
+                                <p class="has-text-white">Seleccione vehículo, servicio y sucursal por la que desea ser atendido.</p>
+                            </div>
+                            <div class="columns">
+                                <div class="column toggle-type is-half">
+                                    <div value="vehicle_type" class="columns is-mobile">
+                                        <div value="auto" class="column button is-large">Auto</div>
+                                        <div value="vito" class="column button is-large is-white">Vito</div>
+                                        <div value="sprinter" class="column button is-large is-white">Sprinter</div>
+                                        <div value="truck" class="column button is-large is-white">Camión</div>
+                                    </div>
+                                </div>
+                                <div class="column is-half">
+                                    <div class="other-actions"><a href="#" class="has-text-info is-size-7">Mi modelo no está</a></div>
+                                    <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/icon-car.png"></span>
+                                        <ul class="is-pulled-left has-text-left">
+                                            <li><span>Modelo Vehículo</span></li>
+                                            <li>
+                                                <!---->
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div dir="auto" class="dropdown v-select single searchable">
+                                        <div class="dropdown-toggle">
+                                            <div class="vs__selected-options">
+                                                <input autocomplete="off" placeholder="Seleccione su modelo" role="combobox" aria-label="Search for option" class="form-control" type="search">
+                                            </div>
+                                            <div class="vs__actions">
+                                                <button type="button" title="Clear selection" class="clear" style="display: none;"><span aria-hidden="true">×</span></button> <i role="presentation" class="open-indicator"></i>
+                                                <div class="spinner" style="display: none;">Loading...</div>
+                                            </div>
+                                        </div>
+                                        <!---->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="columns">
+                                <div class="column toggle-type is-half">
+                                    <div value="service_type" class="columns is-mobile">
+                                        <div value="reparacion" class="column button is-large">Turno Taller</div>
+                                        <div value="reposiciones-seguros" class="column button is-large is-white">Seguros</div>
+                                        <div value="repuestos" class="column button is-large is-white">Repuestos</div>
+                                    </div>
+                                </div>
+                                <div class="column is-half">
+                                    <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/icon-building.png"></span>
+                                        <ul class="is-pulled-left has-text-left">
+                                            <li><span>Sucursal</span></li>
+                                            <li>
+                                                <!---->
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div dir="auto" class="dropdown v-select single searchable">
+                                        <div class="dropdown-toggle">
+                                            <div class="vs__selected-options">
+                                                <input autocomplete="off" placeholder="Seleccione Sucursal" role="combobox" aria-label="Search for option" class="form-control" type="search">
+                                            </div>
+                                            <div class="vs__actions">
+                                                <button type="button" title="Clear selection" class="clear" style="display: none;"><span aria-hidden="true">×</span></button> <i role="presentation" class="open-indicator"></i>
+                                                <div class="spinner" style="display: none;">Loading...</div>
+                                            </div>
+                                        </div>
+                                        <!---->
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="columns">
+                                <div class="column is-one-quarter">
+                                    <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/pasengers_icon.png"></span>
+                                        <ul class="is-pulled-left has-text-left">
+                                            <li><span>Nombre</span></li>
+                                            <li>
+                                                <input class="has-text-info" type="text">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="column is-one-quarter">
+                                    <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/icono-email.svg"></span>
+                                        <ul class="is-pulled-left has-text-left">
+                                            <li><span>Email</span></li>
+                                            <li>
+                                                <input class="has-text-info" type="email">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="column is-one-quarter category">
+                                    <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/icono-telefono.svg"></span>
+                                        <ul class="is-pulled-left has-text-left">
+                                            <li><span>Teléfono</span></li>
+                                            <li>
+                                                <input class="has-text-info" type="phone">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="column is-one-quarter disabled">
+                                    <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/category_icon.svg"></span>
+                                        <ul class="is-pulled-left has-text-left">
+                                            <li><span>Repuesto</span></li>
+                                            <li>
+                                                <input class="has-text-info" type="text">
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="columns">
+                                <div class="column is-one-quarter turno-date">
+                                    <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/calendar_icon.png"></span>
+                                        <ul class="is-pulled-left has-text-left">
+                                            <li><span>Fecha turno</span></li>
+                                            <li><span class="has-text-grey">aaaa-mm-dd</span></li>
+                                        </ul>
+                                    </div>
+                                    <div class="datepicker">
+                                        <input readonly="readonly" class="">
+                                        <a class="datepicker-close"></a>
+                                        <!---->
+                                    </div>
+                                </div>
+                                <div class="column is-one-quarter turno-time">
+                                    <div class="button is-large is-white is-fullwidth"><span class="icon"><img src="/static/img/time_icon.png"></span>
+                                        <ul class="is-pulled-left has-text-left">
+                                            <li><span>Horario</span></li>
+                                            <li>
+                                                <!---->
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div dir="auto" class="dropdown v-select single searchable">
+                                        <div class="dropdown-toggle">
+                                            <div class="vs__selected-options">
+                                                <input autocomplete="off" placeholder="hh:mm" role="combobox" aria-label="Search for option" class="form-control" type="search">
+                                            </div>
+                                            <div class="vs__actions">
+                                                <button type="button" title="Clear selection" class="clear" style="display: none;"><span aria-hidden="true">×</span></button> <i role="presentation" class="open-indicator"></i>
+                                                <div class="spinner" style="display: none;">Loading...</div>
+                                            </div>
+                                        </div>
+                                        <!---->
+                                    </div>
+                                </div>
+                                <div class="column is-half has-text-right">
+                                    <button disabled="disabled" class="button is-expanded">Solicitar turno</button>
+                                </div>
+                            </div>
+                            <div class="content">
+                                <!---->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="board">
+                        <div class="content"><a href="whatsapp://send?phone=+54 9 11 5718-2736&amp;text=Hola, estoy interesado en obtener un turno en Klasse"><span class="fa fa-whatsapp has-text-white"></span> <span class="has-text-white">+54 9 11 5718-2736</span></a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="container dealers">
+                <div class="columns">
+                    <div class="column has-text-left">
+                        <h1 class="has-text-info">Conozca nuestras sucursales</h1></div>
+                </div>
+                <div class="columns is-multiline">
+                    <div class="column is-3">
+                        <a href="/dealers/klasse-bonzi" class="dealer">
+                            <div class="has-background-image" style="background-image: url(&quot;/static/dummy/img/dealers/Sucursal_4.jpg&quot;);"></div>
+                            <div class="has-text-left">
+                                <h1 class="has-text-info">Taller La Matanza</h1>
+                                <h6 class="has-text-dark">Monseñor Bufano, 8338, Aldo Bonzi.</h6></div>
+                        </a>
+                    </div>
+                    <div class="column is-3">
+                        <a href="/dealers/klasse-nunez" class="dealer">
+                            <div class="has-background-image" style="background-image: url(&quot;/static/dummy/img/dealers/SUCURSAL_2.jpg&quot;);"></div>
+                            <div class="has-text-left">
+                                <h1 class="has-text-info">Taller Nuñez</h1>
+                                <h6 class="has-text-dark">Grecia 3633, Nuñez, CABA</h6></div>
+                        </a>
+                    </div>
+                    <div class="column is-3">
+                        <a href="/dealers/klasse-devoto" class="dealer">
+                            <div class="has-background-image" style="background-image: url(&quot;/static/dummy/img/dealers/Sucursal_1.jpg&quot;);"></div>
+                            <div class="has-text-left">
+                                <h1 class="has-text-info">Taller Devoto</h1>
+                                <h6 class="has-text-dark">Av. Francisco Beiro 4764, Villa Devoto, CABA</h6></div>
+                        </a>
+                    </div>
+                    <div class="column is-3">
+                        <a href="/dealers/klasse-olivos" class="dealer">
+                            <div class="has-background-image" style="background-image: url(&quot;/static/dummy/img/dealers/sucursal_3.jpg&quot;);"></div>
+                            <div class="has-text-left">
+                                <h1 class="has-text-info">Taller Vicente Lopez</h1>
+                                <h6 class="has-text-dark">Av Libertador 1802, Vicente Lopez, Olivos</h6></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
