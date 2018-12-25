@@ -146,6 +146,7 @@ function preload(){
   return axios.get('/static/dummy/storage.json').then((res) => {
     res.data.lastUpdate = moment().utc().format();
     localStorage.setItem('storage',JSON.stringify(res.data));
+    console.log("preload")
     return res.data;
   });
 }

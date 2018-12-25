@@ -13,7 +13,7 @@
           <div class="column is-9">
             <div class="app__search revealer has-text-left" :class="{ 'apply' : !loading }">
 
-              <div v-if="err || sent || sendinf" class="turno-status">
+              <div v-if="err || sent || sending" class="turno-status">
                 <div class="content has-text-centered">
                   <div class="columns">
                     <div v-if="sending" class="column">
@@ -232,15 +232,15 @@
           </div>
         </div>
         <div class="columns is-multiline">
-          <div v-for="offer in offers" class="column is-3">
-            <a class="dealer" :href="offer.url" target="_blank">
-              <div class="has-background-image" :style="'background-image:url(' + offer.image + ')'">
+          <div v-for="dealer in dealers" class="column is-3">
+            <router-link class="dealer" :to="'/dealers/' + dealer.slug">
+              <div class="has-background-image" :style="'background-image:url(' + dealer.imagen + ')'">
               </div>
               <div class="has-text-left">
-                <h1 class="has-text-info" v-html="offer.title"></h1>
-                <h6 class="has-text-dark" v-html="offer.subtitle"></h6>
+                <h1 class="has-text-info" v-html="dealer.nombre"></h1>
+                <h6 class="has-text-dark" v-html="dealer.localidad"></h6>
               </div>
-            </a>
+            </router-link>
           </div>
         </div>
       </div>
@@ -267,7 +267,6 @@ export default {
       models: [],
       dealers: [],
       schedules: [],
-      offers: {},
       canShowResults: false,
       search: {
           vehicle: null,
@@ -286,17 +285,13 @@ export default {
     }
   },                 
   mounted: function() {
-    const storage = JSON.parse(localStorage.getItem("storage"))
-    const that = this
-
+    var that = this
     axios.get('/static/dummy/mercedes-models.json').then(function(res){
       that.models = res.data
+      axios.get('/static/dummy/mercedes-dealers.json').then(function(res){
+        that.dealers = res.data
+      })
     })
-
-    axios.get('/static/dummy/mercedes-dealers.json').then(function(res){
-      that.dealers = res.data
-    })
-
     this.loading = false
   },
   computed: {
@@ -323,13 +318,11 @@ export default {
       }
   },
   methods: {
-    handleStorageUpdate: function(t) {
-        console.log("updating storage from home"), this.offers = t.offers.collection, t.ads && t.ads.collection && (this.ads = t.ads.collection.slice(1))
-    },
     handleSearchUpdate: function(t) {
-        if(this.search.turno_date){
-          this.search.turno_date = moment(this.search.turno_date).format("YYYY-MM-DD")
-        }
+        //if(this.search.turno_date){
+          //this.search.turno_date = moment(this.search.turno_date).format("YYYY-MM-DD")
+        this.search.turno_date = this.search.turno_date && moment(this.search.turno_date).format("YYYY-MM-DD")
+        //}
         this.canShowResults = !1, t.turno_date && t.turno_time && t.dealer && this.validateEmail(t.email) && this.validateName(t.full_name) && this.validatePhone(t.phone) && (this.canShowResults = !0)
     },
     validateEmail: function(t) {

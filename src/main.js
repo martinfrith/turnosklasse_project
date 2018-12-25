@@ -22,17 +22,15 @@ new Vue({
 	template: '<App/>',
 	components: {App},
 	mounted: function(){
-
-		var that = this
-	    axios.get('/static/dummy/storage.json').then(function(res){
-    	  that.storage = res.data
-    	})
-
+		console.log("app mounted")
+	    const storage = JSON.parse(localStorage.getItem("storage"))
+	    this.storage = storage
 		this.ready = true;
 	},
 	data: function() {
     	return{
     		ready: false,
+    		storage:{},
 		    datepicker: {
                 monthsHead: "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Deciembre".split("_"),
                 months: "Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic".split("_"),
