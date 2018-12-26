@@ -16,6 +16,11 @@ Vue.component('vue-datepicker-local', VueDatepickerLocal);
 Vue.component('v-select', vSelect)
 Vue.component('passengerpicker', Passengerpicker);
 
+Vue.filter('cs', function (value) {
+  if (!value) return ''
+  return value.join(',')
+})
+
 new Vue({
 	el: '#app',
 	router,
@@ -30,7 +35,7 @@ new Vue({
 	data: function() {
     	return{
     		ready: false,
-    		storage:{},
+    		storage:{header:{},footer:{}},
 		    datepicker: {
                 monthsHead: "Enero_Febrero_Marzo_Abril_Mayo_Junio_Julio_Agosto_Septiembre_Octubre_Noviembre_Deciembre".split("_"),
                 months: "Ene_Feb_Mar_Abr_May_Jun_Jul_Ago_Sep_Oct_Nov_Dic".split("_"),

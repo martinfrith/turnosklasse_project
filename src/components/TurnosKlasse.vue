@@ -3,7 +3,7 @@
     <div class="hero-body">
       <div class="container">
 
-        <article v-if="$root.storage.announcement" :class="'message ' + announcement.type">
+        <article v-if="$root.storage.announcement" :class="'message ' + $root.storage.announcement.type">
           <div class="message-body">
             <span v-html="$root.storage.announcement.message"></span>
           </div>
@@ -18,15 +18,15 @@
                   <div class="columns">
                     <div v-if="sending" class="column">
                       <h1 class="is-size-1"><i class="fa fa-clock-o has-text-white"></i></h1> 
-                      <p class="has-text-white">Estamos procesando su solicitud</p>
+                      <p class="has-text-white" v-html="$root.storage.turnosklasse.procesando"></p>
                     </div>
                     <div v-if="err" class="column">
-                      <h1 class="is-size-1"><i class="fa fa-check has-text-white"></i></h1> 
-                      <p class="has-text-white">Hubo un error. El servidor no respondió como se esperaba. Vuelva a intentarlo en unos minutos.<a href="#">Intentar nuevamente</a></p>
+                      <h1 class="is-size-1"><i class="fa fa-fire has-text-white"></i></h1> 
+                      <p class="has-text-white" v-html="$root.storage.turnosklasse.error"></p>
                     </div>
                     <div v-if="sent" class="column">
                       <h1 class="is-size-1"><i class="fa fa-check has-text-white"></i></h1> 
-                      <p class="has-text-white">Gracias por elegirnos. Tu solicitud fue procesada con éxito, en breve estaremos confirmando la misma. <a href="#">Solicitar nuevo turno</a></p>
+                      <p class="has-text-white" v-html="$root.storage.turnosklasse.exito"></p>
                     </div>
                   </div>
                 </div>
@@ -100,7 +100,7 @@
                       </li>
                       </ul>
                     </div>
-                    <v-select v-model="search.dealer" maxHeight="inherit" placeholder="Seleccione Sucursal" :selected="search.dealer" :options="filtroDealers" label="nombre">
+                    <v-select v-model="search.dealer" maxHeight="inherit" placeholder="Seleccione Sucursal" :selected="search.dealer" :options="filtroDealers" label="nombre" @input="setDealer">
                       <template slot="no-options">
                         Seleccione Sucursal
                       </template>                
@@ -153,13 +153,13 @@
                       </ul>
                     </div>
                   </div>
-                  <div class="column is-one-quarter disabled" :class="{ 'accepted' : search.repuesto }">
-                    <div class="button is-large is-white is-fullwidth">
+                  <div class="column is-one-quarter" :class="{ 'disabled' : search.service_type != 'repuestos' }">
+                    <div class="button is-large is-white is-fullwidth" :class="{ 'accepted' : search.repuesto }">
                       <span class="icon"><img src="/static/img/category_icon.svg"></span>
                       <ul class="is-pulled-left has-text-left">
                         <li><span>Repuesto</span></li>
                         <li>
-                          <input type="text" v-model="search.full_name">
+                          <input type="text" v-model="search.repuesto">
                         </li>
                       </ul>
                     </div>
@@ -168,34 +168,34 @@
 
                 <div class="columns">
                   <div class="column is-one-quarter turno-date">
-                    <div class="button is-large is-white is-fullwidth" @click="showDepartDate">
+                    <div class="button is-large is-white is-fullwidth" @click="showDepartDate" :class="{ 'accepted' : search.turno_date }">
                       <span class="icon">
                         <img src="/static/img/calendar_icon.png">
                       </span>
                       <ul class="is-pulled-left has-text-left">
                       <li><span>Fecha turno</span></li>
                       <li>
-                      <span v-if="search.turno_date" class="has-text-black" v-html="search.turno_date"></span>
-                      <span v-else class="has-text-grey">aaaa/mm/dd</span>
+                        <span v-if="search.turno_date" class="has-text-black" v-html="search.turno_date"></span>
+                        <span v-else class="has-text-grey">aaaa/mm/dd</span>
                       </li>
                       </ul>
                     </div>
                     <vue-datepicker-local :local="$root.datepicker" v-model="search.turno_date" format="YYYY-MM-DD"></vue-datepicker-local>
                   </div>
                   <div class="column is-one-quarter turno-time">
-                    <div class="button is-large is-white is-fullwidth" @click="showReturnDate">
+                    <div class="button is-large is-white is-fullwidth" @click="showReturnDate" :class="{ 'accepted' : search.turno_time }">
                       <span class="icon">
                         <img src="/static/img/calendar_icon.png">
                       </span>
                       <ul class="is-pulled-left has-text-left">
                         <li><span>Horario</span></li>
                         <li>
-                        <span v-if="search['return-date']" class="has-text-info" v-html="search['return-date']"></span>
-                        <span v-else class="has-text-grey"></span>
+                          <span v-if="search.turno_time" class="has-text-black" v-html="search.turno_time"></span>
+                          <span v-else class="has-text-grey"></span>
                         </li>
                       </ul>
                     </div>
-                    <v-select v-model="search.turno_time" maxHeight="inherit" label="value">
+                    <v-select v-model="search.turno_time" maxHeight="inherit" :selected="search.turno_time" :options="schedules" label="value">
                       <template slot="no-options">
                         Seleccione Sucursal
                       </template>                
@@ -211,10 +211,15 @@
                       </template>    
                     </v-select>
                   </div>
+
                   <div class="column is-half has-text-right">
                     <button class="button is-expanded" @click="submit" :disabled="!canShowResults">Solicitar turno</button>
                   </div>                  
                 </div>
+                <p v-if="search.turno_time == '17:00'" class="has-warning-background has-text-white is-size-7">
+                  <span class="fa fa-warning"></span>
+                  <span>Es posible que retire su vehículo al día siguiente del turno debido al horario seleccionado.</span>
+                </p>
               </div>
             </div>
           </div>
@@ -319,10 +324,7 @@ export default {
   },
   methods: {
     handleSearchUpdate: function(t) {
-        //if(this.search.turno_date){
-          //this.search.turno_date = moment(this.search.turno_date).format("YYYY-MM-DD")
         this.search.turno_date = this.search.turno_date && moment(this.search.turno_date).format("YYYY-MM-DD")
-        //}
         this.canShowResults = !1, t.turno_date && t.turno_time && t.dealer && this.validateEmail(t.email) && this.validateName(t.full_name) && this.validatePhone(t.phone) && (this.canShowResults = !0)
     },
     validateEmail: function(t) {
@@ -335,12 +337,14 @@ export default {
         return /\d+/.test(t)
     },
     setToggleType: function(t) {
-        t.type;
-        var e = t.target;
-        this.search[e.parentNode.getAttribute("value")] = e.getAttribute("value")
+      t.type;
+      var e = t.target;
+      this.search[e.parentNode.getAttribute("value")] = e.getAttribute("value")
     },
     setDealer: function(t) {
-        t && "object" == (void 0 === t ? "undefined" : d()(t)) && (this.schedules = JSON.parse(u()(t.horarios)))
+      if(t.horarios){
+        this.schedules = t.horarios
+      }
     },
     inputModel: function() {
         var t = prompt("Por favor ingrese su modelo a mano.", "");
@@ -362,13 +366,18 @@ export default {
     },
     showCategory: function() {},
     submit: function(t) {
-        var e = this,
-            s = (t.type, t.target, this);
-        this.sending = !0, n.a.post("https://api.automovilshop.com/pilot", this.search).then(function(t) {
-            e.sending = !1, "success" === t.data.status ? s.sent = !0 : s.err = !0
-        }).catch(function(t) {
-            console.log(t)
-        })
+      var that = this
+      this.sending = true
+      axios.post(this.$root.storage.endpoint + '/pilot', this.search).then(function(res) {
+          that.sending = false
+          if(res.data.status==="success"){
+            that.sent = true;
+          } else {
+            that.err = true;
+          }
+      }).catch(function(t) {
+          console.log(t)
+      })
     }
   }
 }

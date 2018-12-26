@@ -39,20 +39,18 @@ import moment from 'moment';
 export default {
   name: 'Dealer',
   mounted: function(){
-    if(!this.dealer.length) {
-      var that = this
-      axios.get( `https://api.jsonbin.io/b/5c1d21e53f8bd92e4cc0c19b`)
-        .then(res => {
-          _.map(res.data, function(value, key) {
-            if(value.slug === that.$route.params.slug){
-              that.dealer = value
-            }
-          });
-          that.initMap()
-        }).catch(function(error) {
-          console.log(error)
-        })      
-    }
+    var that = this
+    axios.get( '/static/dummy/mercedes-dealers.json')
+      .then(res => {
+        _.map(res.data, function(value, key) {
+          if(value.slug === that.$route.params.slug){
+            that.dealer = value
+          }
+        });
+        that.initMap()
+      }).catch(function(error) {
+        console.log(error)
+      })      
   },
   methods: {
     initMap: function(){
@@ -72,8 +70,7 @@ export default {
   },
   data () {
     return {
-      dealer:[],
-      msg: 'Welcome to Your Vue.js App'
+      dealer:[]
     }
   }
 }

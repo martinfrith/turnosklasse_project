@@ -73,6 +73,13 @@ input[type="checkbox"], input[type="radio"] {
 	.section {
 		padding: 1rem 1.5rem;
 		min-height: 100%;
+
+		.has-text-left {
+		    padding-top: 2rem;
+		}		
+		p {
+		    margin-bottom: 2rem;
+		}		
 	}
 
 	.delete {
@@ -479,7 +486,7 @@ input[type="checkbox"], input[type="radio"] {
 			}
 
 			&:not(.is-white) {
-				background-color: #089dd7;
+				background-color: #162c7a;
 			}
 		}		
 	}

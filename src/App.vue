@@ -6,8 +6,8 @@
       <div class="container">
         <div class="navbar-brand">
           <router-link class="navbar-item" to="/">
-            <img src="/static/img/logo.jpeg">
-            <span class="is-size-5 has-text-weight-bold">Klasse</span> <span class="is-size-6 is-slogan is-capitalize">Cigliutti Guerini</span>
+            <img :src="$root.storage.header.logo">
+            <span class="is-size-5 has-text-weight-bold" v-html="$root.storage.header.text"></span> <span class="is-size-6 is-slogan is-capitalize" v-html="$root.storage.header.subtext"></span>
           </router-link>
           <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
             <span></span>
@@ -17,8 +17,7 @@
         </div>
         <div id="navbarExampleTransparentExample" class="navbar-menu">
           <div class="navbar-start">
-            <router-link class="navbar-item" to="/">Turnos</router-link>
-            <router-link class="navbar-item" to="/dealers">Sucursales</router-link>
+            <router-link v-for="item in $root.storage.header.options" class="navbar-item" :to="item.link" v-html="item.text"></router-link>
           </div>
         </div>
       </div>
@@ -37,27 +36,30 @@
     <div class="footer" v-show="$parent.ready"><hr>
       <div class="container">  
         <div class="columns">
-          <div class="column has-text-left">
-            <strong>Herramientas</strong>
-            <p><router-link to="/">Turnos</router-link></p>
-            <p><router-link to="/dealers">Sucursales</router-link></p>
-          </div>
-          <div class="column has-text-left">
-            <strong>Empresa</strong>
-            <p><a href="#" data-target="modal-terminos" class="modal-button">Términos y condiciones</a></p>
-          </div>
-          <div class="column has-text-left">
-            <strong>Redes</strong>
-            <p><a href="https://facebook.com/KlasseMercedesBenz" target="_blank"><span class="icon"><i class="fa fa-facebook"></i></span> /KlasseMercedesBenz</a></p>
-            <p><a href="https://instagram.com/klassemb" target="_blank"><span class="icon"><i class="fa fa-instagram"></i></span> @klassemb</a></p>
+          <div v-for="group in $root.storage.footer.options" class="column has-text-left">
+            <strong v-html="group.text"></strong>
+            <p v-for="item in group.options">
+              <router-link v-if="!item.is_blank && !item.target" :to="item.link">
+                <span v-show="item.faicon" :class="'fa fa-' + item.faicon"></span>
+                <span :title="item.title" v-html="item.text"></span>
+              </router-link>
+              <a v-if="item.is_blank" :href="item.link">
+                <span v-show="item.faicon" :class="'fa fa-' + item.faicon"></span>
+                <span :title="item.title" v-html="item.text"></span>
+              </a>
+              <a v-if="item.target" href="#" :data-target="item.target" class="modal-button">
+                <span v-show="item.faicon" :class="'fa fa-' + item.faicon"></span>
+                <span :title="item.title" v-html="item.text"></span>
+              </a>
+            </p>
           </div>
         </div>
         <div class="has-text-center is-size-6">
-          <strong>2018 Klasse · Cigliutti Guerini </strong> <span> Todos los derechos reservados</span>
+          <strong v-html="$root.storage.footer.text"></strong> <span v-html="$root.storage.footer.subtext"></span>
         </div>
       </div>
     </div>
-    
+
     <!-- modals -->
     <div id="modal-terminos" class="modal">
         <div class="modal-background"></div>
