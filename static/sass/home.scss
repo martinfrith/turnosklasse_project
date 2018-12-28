@@ -269,7 +269,7 @@ input[type="checkbox"], input[type="radio"] {
 
 	.card-icon {
 	    font-size:1.25rem;
-	    line-height:1.85rem;
+	    line-height:2rem;
 	    display:inline-block;
 	    min-width:30px;
 	    text-align:center;
@@ -421,8 +421,14 @@ input[type="checkbox"], input[type="radio"] {
 .remoteNme{
     font-size:10px
 }
-.chatrvya360 *{
-    font-family:Montserrat
+.chatrvya360 {
+	* {
+    	font-family:"Montserrat";
+	}
+    h4 {
+    	margin-top: 0!important;
+    	margin-bottom: 0!important;
+    }
 }
 
 .turno-status {
@@ -508,6 +514,7 @@ input[type="checkbox"], input[type="radio"] {
 		.icon {
 		    max-width:1rem;
 		    position:relative;
+		    margin-left:0!important;
 		    left:0;
 		    top:-.3rem
 		}
@@ -534,6 +541,7 @@ input[type="checkbox"], input[type="radio"] {
 
 	.button.is-expanded {
 		min-width: 150px;
+		background-color: #0C7F9F;
 	}
 
 	.button.is-expanded[disabled] {

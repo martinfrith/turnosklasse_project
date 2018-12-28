@@ -4,7 +4,7 @@
       <div class="container">
 
         <article v-if="$root.storage.announcement" :class="'message ' + $root.storage.announcement.type">
-          <div class="message-body">
+          <div class="message-body has-text-left">
             <span v-html="$root.storage.announcement.message"></span>
           </div>
         </article>        
@@ -167,7 +167,7 @@
                 </div>
 
                 <div class="columns">
-                  <div class="column is-one-quarter turno-date">
+                  <div class="column is-one-quarter turno-date" :class="{ 'disabled' : search.service_type == 'repuestos' }">
                     <div class="button is-large is-white is-fullwidth" @click="showDepartDate" :class="{ 'accepted' : search.turno_date }">
                       <span class="icon">
                         <img src="/static/img/calendar_icon.png">
@@ -180,12 +180,12 @@
                       </li>
                       </ul>
                     </div>
-                    <vue-datepicker-local :local="$root.datepicker" v-model="search.turno_date" format="YYYY-MM-DD"></vue-datepicker-local>
+                    <vue-datepicker-local :local="$root.datepicker" v-model="search.turno_date" :disabled-date="disabledDates" format="YYYY-MM-DD"></vue-datepicker-local>
                   </div>
-                  <div class="column is-one-quarter turno-time">
+                  <div class="column is-one-quarter turno-time" :class="{ 'disabled' : search.service_type == 'repuestos' }">
                     <div class="button is-large is-white is-fullwidth" @click="showReturnDate" :class="{ 'accepted' : search.turno_time }">
                       <span class="icon">
-                        <img src="/static/img/calendar_icon.png">
+                        <img src="/static/img/time_icon.png">
                       </span>
                       <ul class="is-pulled-left has-text-left">
                         <li><span>Horario</span></li>
@@ -324,8 +324,17 @@ export default {
   },
   methods: {
     handleSearchUpdate: function(t) {
-        this.search.turno_date = this.search.turno_date && moment(this.search.turno_date).format("YYYY-MM-DD")
-        this.canShowResults = !1, t.turno_date && t.turno_time && t.dealer && this.validateEmail(t.email) && this.validateName(t.full_name) && this.validatePhone(t.phone) && (this.canShowResults = !0)
+      this.canShowResults = false
+      this.search.turno_date = this.search.turno_date && moment(this.search.turno_date).format("YYYY-MM-DD")
+      if(t.service_type === 'repuestos'){
+        if(t.vehicle && t.dealer && this.validateEmail(t.email) && this.validateName(t.full_name) && this.validatePhone(t.phone)) {
+          this.canShowResults = true
+        }
+      } else {
+        if(t.vehicle && t.dealer && t.turno_date && t.turno_time && this.validateEmail(t.email) && this.validateName(t.full_name) && this.validatePhone(t.phone)) {
+          this.canShowResults = true
+        }
+      }
     },
     validateEmail: function(t) {
         return /\S+@\S+\.\S+/.test(t)
@@ -345,6 +354,13 @@ export default {
       if(t.horarios){
         this.schedules = t.horarios
       }
+    },
+    disabledDates: function(t) {
+        var e = new Date,
+            s = t.getTime(),
+            a = e.getTime(),
+            i = t.getDay();
+        return s < a || 0 === i || 6 === i
     },
     inputModel: function() {
         var t = prompt("Por favor ingrese su modelo a mano.", "");
@@ -368,12 +384,13 @@ export default {
     submit: function(t) {
       var that = this
       this.sending = true
-      axios.post(this.$root.storage.endpoint + '/pilot', this.search).then(function(res) {
+      axios.post(this.$root.storage.endpoint + 'pilot', this.search).then(function(res) {
           that.sending = false
           if(res.data.status==="success"){
-            that.sent = true;
+            that.sent = true
+            gtag('event', 'conversion', {'send_to': 'AW-772845469/Jw_uCJS5kpIBEJ3fwvAC'})
           } else {
-            that.err = true;
+            that.err = true
           }
       }).catch(function(t) {
           console.log(t)

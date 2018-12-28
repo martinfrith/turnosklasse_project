@@ -17,26 +17,24 @@
         </div>
         <div id="navbarExampleTransparentExample" class="navbar-menu">
           <div class="navbar-start">
-            <router-link v-for="item in $root.storage.header.options" class="navbar-item" :to="item.link" v-html="item.text"></router-link>
+            <router-link v-for="item in $root.storage.header.options" :key="item.link" class="navbar-item" :to="item.link" v-html="item.text"></router-link>
           </div>
         </div>
       </div>
-    </nav>
-    
+    </nav>    
 
     <!-- template -->
     <keep-alive>
       <transition>
         <router-view/>
       </transition>
-    </keep-alive>
-    
+    </keep-alive>    
 
     <!-- footer -->
     <div class="footer" v-show="$parent.ready"><hr>
       <div class="container">  
         <div class="columns">
-          <div v-for="group in $root.storage.footer.options" class="column has-text-left">
+          <div v-for="group in $root.storage.footer.options" :key="group.text" class="column has-text-left">
             <strong v-html="group.text"></strong>
             <p v-for="item in group.options">
               <router-link v-if="!item.is_blank && !item.target" :to="item.link">
