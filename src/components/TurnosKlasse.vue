@@ -273,6 +273,7 @@ export default {
       dealers: [],
       schedules: [],
       canShowResults: false,
+      _gtag: gtag,
       search: {
           vehicle: null,
           vehicle_type: "auto",
@@ -326,6 +327,7 @@ export default {
     handleSearchUpdate: function(t) {
       this.canShowResults = false
       this.search.turno_date = this.search.turno_date && moment(this.search.turno_date).format("YYYY-MM-DD")
+
       if(t.service_type === 'repuestos'){
         if(t.vehicle && t.dealer && this.validateEmail(t.email) && this.validateName(t.full_name) && this.validatePhone(t.phone)) {
           this.canShowResults = true
@@ -388,7 +390,7 @@ export default {
           that.sending = false
           if(res.data.status==="success"){
             that.sent = true
-            gtag('event', 'conversion', {'send_to': 'AW-772845469/Jw_uCJS5kpIBEJ3fwvAC'})
+            window.gtag('event', 'conversion', {'send_to': 'AW-772845469/Jw_uCJS5kpIBEJ3fwvAC'})
           } else {
             that.err = true
           }

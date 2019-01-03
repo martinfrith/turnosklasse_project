@@ -4,7 +4,7 @@
     <!-- navbar -->
     <nav class="navbar is-transparent" v-show="$parent.ready">
       <div class="container">
-        <div class="navbar-brand">
+        <div v-if="$root.storage" class="navbar-brand">
           <router-link class="navbar-item" to="/">
             <img :src="$root.storage.header.logo">
             <span class="is-size-5 has-text-weight-bold" v-html="$root.storage.header.text"></span> <span class="is-size-6 is-slogan is-capitalize" v-html="$root.storage.header.subtext"></span>
@@ -30,8 +30,16 @@
       </transition>
     </keep-alive>    
 
+    <div class="d-hotline animated zoomIn">
+      <a href="whatsapp://send?phone=+54 9 11 5718-2736&amp;text=Hola, estoy interesado en obtener un turno en Klasse">
+        <div class="chat-content">
+          <i class="fa fa-whatsapp"></i>
+        </div>
+      </a>
+    </div>
+
     <!-- footer -->
-    <div class="footer" v-show="$parent.ready"><hr>
+    <div class="footer" v-if="$root.storage" v-show="$parent.ready"><hr>
       <div class="container">  
         <div class="columns">
           <div v-for="group in $root.storage.footer.options" :key="group.text" class="column has-text-left">
@@ -57,6 +65,7 @@
         </div>
       </div>
     </div>
+
 
     <!-- modals -->
     <div id="modal-terminos" class="modal">

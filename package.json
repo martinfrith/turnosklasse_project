@@ -22,6 +22,7 @@
     "moment-locales-webpack-plugin": "^1.0.7",
     "qs": "^6.5.2",
     "vue": "^2.5.2",
+    "vue-analytics": "^5.16.1",
     "vue-datepicker-local": "^1.0.19",
     "vue-router": "^3.0.1",
     "vue-select": "^2.5.1",

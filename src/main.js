@@ -17,8 +17,8 @@ Vue.component('v-select', vSelect)
 Vue.component('passengerpicker', Passengerpicker);
 
 Vue.filter('cs', function (value) {
-  if (!value) return ''
-  return value.join(',')
+	if (!value) return ''
+	return value.join(',')
 })
 
 new Vue({

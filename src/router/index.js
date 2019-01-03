@@ -124,23 +124,15 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 
+/*
 window.onerror = function(msg, url, line, col, error) {
-   // Note that col & error are new to the HTML 5 spec and may not be 
-   // supported in every browser.  It worked for me in Chrome.
-   var extra = !col ? '' : '\ncolumn: ' + col;
-   extra += !error ? '' : '\nerror: ' + error;
-
-   // You can view the information in an alert to see things working like this:
-   alert("Error: " + msg + "\nurl: " + url + "\nline: " + line + extra);
-
-   // TODO: Report this error via ajax so you can keep track
-   //       of what pages have JS issues
-
-   var suppressErrorAlert = true;
-   // If you return true, then error alerts (like in older versions of 
-   // Internet Explorer) will be suppressed.
-   return suppressErrorAlert;
+  var extra = !col ? '' : '\ncolumn: ' + col;
+  extra += !error ? '' : '\nerror: ' + error;
+  alert("Error: " + msg + "\nurl: " + url + "\nline: " + line + extra);
+  var suppressErrorAlert = true;
+  return suppressErrorAlert;
 };
+*/
 
 function preload(){
   return axios.get('/static/dummy/storage.json').then((res) => {
@@ -150,7 +142,6 @@ function preload(){
     return res.data;
   });
 }
-
 
 router.beforeEach((to, from, next) => {
   var storage = localStorage.getItem('storage');
