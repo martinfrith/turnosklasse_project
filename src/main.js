@@ -29,8 +29,11 @@ new Vue({
 	mounted: function(){
 		console.log("app mounted")
 	    const storage = JSON.parse(localStorage.getItem("storage"))
+	    var that = this
 	    this.storage = storage
-		this.ready = true;
+	    setTimeout(() => {
+	    	that.ready = true;	
+	    },500)		
 	},
 	data: function() {
     	return{

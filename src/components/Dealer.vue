@@ -9,13 +9,19 @@
     </div>
     <div class="hero-body">
       <div class="container">
+        <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+          <ul>
+            <li><router-link to="/dealers">Sucursales</router-link></li>
+            <li class="is-active"><a href="#" aria-current="page" v-html="dealer.nombre"></a></li>
+          </ul>
+        </nav>      
         <div class="columns card dealer-card">
           <div class="column has-text-left">
             <div class="has-background-image" :style="'background-image:url('+dealer.imagen+')'">
             </div>
-            <h1 class="card-head is-size-5 has-text-weight-semibold">
-              <span class="fa fa-building-o"></span>
-              <span v-html="dealer.nombre"></span>
+            <h1 class="card-head has-text-weight-semibold">
+              <!--span class="fa fa-building-o"></span>
+              <span v-html="dealer.nombre"></span-->
             </h1>
             <p><span class="card-icon"><span class="fa fa-map-pin"></span></span> <a :href="'https://maps.google.com/?q='+dealer.direccion"><span v-html="dealer.direccion"></span></a></p>
             <p><span class="card-icon"><span class="fa fa-phone"></span></span> <a :href="'call:'+ dealer.telefono"><span v-html="dealer.telefono"></span></a></p>
@@ -65,7 +71,7 @@ export default {
         .addTo(this.map);
 
       this.map.setCenter([this.dealer.lng,this.dealer.lat])
-      this.map.setZoom(15)
+      this.map.setZoom(14)
     }    
   },
   data () {

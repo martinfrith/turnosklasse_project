@@ -3,18 +3,18 @@
     <div class="hero-body">
       <div class="container">
 
-        <article v-if="$root.storage.announcement" :class="'message ' + $root.storage.announcement.type">
+        <article v-if="$root.storage && $root.storage.announcement" :class="'message ' + $root.storage.announcement.type">
           <div class="message-body has-text-left">
             <span v-html="$root.storage.announcement.message"></span>
           </div>
         </article>        
 
-        <div class="columns is-fullhd">
+        <div class="columns">
           <div class="column is-9">
             <div class="app__search revealer has-text-left" :class="{ 'apply' : !loading }">
 
               <div v-if="err || sent || sending" class="turno-status">
-                <div class="content has-text-centered">
+                <div v-if="$root.storage" class="content has-text-centered">
                   <div class="columns">
                     <div v-if="sending" class="column">
                       <h1 class="is-size-1"><i class="fa fa-clock-o has-text-white"></i></h1> 
@@ -120,46 +120,46 @@
                 </div>
 
                 <div class="columns">
-                  <div class="column is-one-quarter">
+                  <div class="column is-one-quarter" @click="$refs.full_name.focus()">
                     <div class="button is-large is-white is-fullwidth" :class="{ 'accepted' : validateName(search.full_name) }">
                       <span class="icon"><img src="/static/img/pasengers_icon.png"></span>
                       <ul class="is-pulled-left has-text-left">
                         <li><span>Nombre</span></li>
                         <li>
-                          <input type="text" v-model="search.full_name">
+                          <input type="text" ref="full_name" v-model="search.full_name">
                         </li>
                       </ul>
                     </div>
                   </div>
-                  <div class="column is-one-quarter">
+                  <div class="column is-one-quarter" @click="$refs.email.focus()">
                     <div class="button is-large is-white is-fullwidth" :class="{ 'accepted' : validateEmail(search.email) }">
                       <span class="icon"><img src="/static/img/icono-email.svg"></span>
                       <ul class="is-pulled-left has-text-left">
                         <li><span>Email</span></li>
                         <li>
-                          <input type="email" v-model="search.email">
+                          <input type="email" ref="email" v-model="search.email">
                         </li>
                       </ul>
                     </div>
                   </div>
-                  <div class="column is-one-quarter">
+                  <div class="column is-one-quarter" @click="$refs.telefono.focus()">
                     <div class="button is-large is-white is-fullwidth" :class="{ 'accepted' : validatePhone(search.phone) }">
                     <span class="icon"><img src="/static/img/icono-telefono.svg"></span>
                       <ul class="is-pulled-left has-text-left">
                         <li><span>Teléfono</span></li>
                         <li>
-                          <input type="phone" v-model="search.phone">
+                          <input type="phone" ref="telefono" v-model="search.phone">
                         </li>
                       </ul>
                     </div>
                   </div>
-                  <div class="column is-one-quarter" :class="{ 'disabled' : search.service_type != 'repuestos' }">
+                  <div class="column is-one-quarter" @click="$refs.repuesto.focus()" :class="{ 'disabled' : search.service_type != 'repuestos' }">
                     <div class="button is-large is-white is-fullwidth" :class="{ 'accepted' : search.repuesto }">
                       <span class="icon"><img src="/static/img/category_icon.svg"></span>
                       <ul class="is-pulled-left has-text-left">
                         <li><span>Repuesto</span></li>
                         <li>
-                          <input type="text" v-model="search.repuesto">
+                          <input type="text" ref="repuesto" v-model="search.repuesto">
                         </li>
                       </ul>
                     </div>
@@ -176,7 +176,7 @@
                       <li><span>Fecha turno</span></li>
                       <li>
                         <span v-if="search.turno_date" class="has-text-black" v-html="search.turno_date"></span>
-                        <span v-else class="has-text-grey">aaaa/mm/dd</span>
+                        <span v-else class="has-text-grey">aaaa-mm-dd</span>
                       </li>
                       </ul>
                     </div>
@@ -225,7 +225,16 @@
           </div>
           <div class="column">
             <div class="board">
-              <div class="content"><a href="whatsapp://send?phone=+54 9 11 5718-2736&amp;text=Hola, estoy interesado en obtener un turno en Klasse"><span class="fa fa-whatsapp has-text-white"></span> <span class="has-text-white">+54 9 11 5718-2736</span></a></div>
+              <div class="content">
+                <a class="is-hidden-tablet" href="whatsapp://send?phone=+54 9 11 5718-2736&amp;text=Hola, estoy interesado en obtener un turno en Klasse">
+                  <span class="fa fa-whatsapp has-text-white"></span> 
+                  <span class="has-text-white">+54 9 11 5718-2736</span>
+                </a>
+                <a class="is-hidden-mobile" href="https://web.whatsapp.com/send?phone=5491157182736&amp;text=Hola, estoy interesado en obtener un turno en Klasse">
+                  <span class="fa fa-whatsapp has-text-white"></span> 
+                  <span class="has-text-white">+54 9 11 5718-2736</span>
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -237,8 +246,8 @@
           </div>
         </div>
         <div class="columns is-multiline">
-          <div v-for="dealer in dealers" class="column is-3">
-            <router-link class="dealer" :to="'/dealers/' + dealer.slug">
+          <div v-for="dealer in dealers" class="column is-3 dealer">
+            <router-link :to="'/dealers/' + dealer.slug">
               <div class="has-background-image" :style="'background-image:url(' + dealer.imagen + ')'">
               </div>
               <div class="has-text-left">

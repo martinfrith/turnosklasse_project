@@ -15,8 +15,8 @@
           </div>
         </div> 
         <div class="columns is-multiline">
-          <div v-for="dealer in dealers" class="column is-3">
-            <router-link class="dealer" :to="'/dealers/' + dealer.slug">
+          <div v-for="dealer in dealers" class="column is-3 dealer">
+            <router-link :to="'/dealers/' + dealer.slug">
               <div class="has-background-image" :style="'background-image:url(' + dealer.imagen + ')'">
               </div>
               <div class="has-text-left">
