@@ -138,7 +138,6 @@ function preload(){
   return axios.get('/static/dummy/storage.json').then((res) => {
     res.data.lastUpdate = moment().utc().format();
     localStorage.setItem('storage',JSON.stringify(res.data));
-    console.log("preload")
     return res.data;
   });
 }
@@ -158,10 +157,10 @@ router.beforeEach((to, from, next) => {
     var fresh = issued > then;
   }
   if (storage && fresh > 0) {
-    console.log("🙎 storage is fresh")
+    //console.log("🙎 storage is fresh")
     next()
   } else {
-    console.log("🙏 update storage")
+    //console.log("🙏 update storage")
     preload().then(() => {
       next()
     })
@@ -170,8 +169,6 @@ router.beforeEach((to, from, next) => {
 
 router.afterEach(function (to, from, next) {
   setTimeout(function() {
-    document.querySelector('.navbar-menu').classList.remove('is-active');
-    document.querySelector('.navbar-burger').classList.remove('is-active');
     document.querySelectorAll('.modal').forEach((modal) => {
       modal.classList.remove('is-active');
     });

@@ -27,13 +27,10 @@ new Vue({
 	template: '<App/>',
 	components: {App},
 	mounted: function(){
-		console.log("app mounted")
-	    const storage = JSON.parse(localStorage.getItem("storage"))
-	    var that = this
-	    this.storage = storage
 	    setTimeout(() => {
-	    	that.ready = true;	
-	    },500)		
+	    	this.storage = JSON.parse(localStorage.getItem("storage"))
+	    	this.ready = true;	
+	    },750)
 	},
 	data: function() {
     	return{

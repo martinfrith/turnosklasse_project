@@ -70,7 +70,7 @@
                           <strong>{{ option.title }}</strong>
                         </div>
                       </template>
-                      <template slot="selected-option" scope="option">
+                      <template slot="selected-option" slot-scope="option">
                         <div class="selected d-center">
                           <!--strong class="has-text-success">{{ option.title }}</strong-->
                         </div>
@@ -110,7 +110,7 @@
                           {{ option.direccion }}
                         </div>
                       </template>
-                      <template slot="selected-option" scope="option">
+                      <template slot="selected-option" slot-scope="option">
                         <div class="selected d-center">
                           <!-- {{ option.city }} ({{ option.airport_code }}) -->
                         </div>
@@ -204,7 +204,7 @@
                           <strong>{{ option.value }}</strong>
                         </div>
                       </template>
-                      <template slot="selected-option" scope="option">
+                      <template slot="selected-option" slot-scope="option">
                         <div class="selected d-center">
                           <!-- {{ option.city }} ({{ option.airport_code }}) -->
                         </div>

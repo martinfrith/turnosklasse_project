@@ -3,18 +3,21 @@
     <div class="has-background-white">
       <div class="container has-text-left">
         <h2 class="title">
-          <span v-html="dealer.nombre"></span>
+          <span>
+            <router-link to="/dealers">Sucursales</router-link> 
+          </span>
+          <span> ⚫ <span v-html="dealer.nombre"></span></span>
         </h2>
       </div>
     </div>
     <div class="hero-body">
       <div class="container">
-        <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+        <!--nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
           <ul>
             <li><router-link to="/dealers">Sucursales</router-link></li>
             <li class="is-active"><a href="#" aria-current="page" v-html="dealer.nombre"></a></li>
           </ul>
-        </nav>      
+        </nav-->      
         <div class="columns card dealer-card">
           <div class="column has-text-left">
             <div class="has-background-image" :style="'background-image:url('+dealer.imagen+')'">

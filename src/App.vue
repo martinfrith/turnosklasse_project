@@ -15,7 +15,7 @@
             <span></span>
           </div>
         </div>
-        <div id="navbarExampleTransparentExample" class="navbar-menu">
+        <div id="navbarExampleTransparentExample" class="navbar-menu" v-if="$root.storage">
           <div class="navbar-start">
             <router-link v-for="item in $root.storage.header.options" :key="item.link" class="navbar-item" :to="item.link" v-html="item.text"></router-link>
           </div>
@@ -52,7 +52,7 @@
             </p>
           </div>
         </div>
-        <div class="has-text-center is-size-6">
+        <div class="has-text-center is-size-6" v-if="$root.storage">
           <strong v-html="$root.storage.footer.text"></strong> <span v-html="$root.storage.footer.subtext"></span>
         </div>
       </div>

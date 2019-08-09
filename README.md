@@ -1,4 +1,4 @@
-# jetsbooking-web
+# turnosklasse-web
 
 ### Jetsbooking web app.
 * Lightweight
@@ -6,11 +6,11 @@
 * Bundled!
 * An Overlemon project
 
-![image](https://jetsbooking.herokuapp.com/static/img/isologo_jetsbooking.png)
+![image](https://turnosklasse.herokuapp.com/static/img/isologo_turnosklasse.png)
 > Changing the way you fly
 
 ## Demo
-[https://jetsbooking.herokuapp.com](https://jetsbooking.herokuapp.com)
+[https://turnosklasse.herokuapp.com](https://turnosklasse.herokuapp.com)
 
 ## Usage
 ### Components
