@@ -75,53 +75,54 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Modals
+  setTimeout(() => {
+    var rootEl = document.documentElement;
+    var $modals = getAll('.modal');
+    var $modalButtons = getAll('.modal-button');
+    var $modalCloses = getAll('.modal-background, .modal-close, .modal .delete, .modal-card-foot .button');
 
-  var rootEl = document.documentElement;
-  var $modals = getAll('.modal');
-  var $modalButtons = getAll('.modal-button');
-  var $modalCloses = getAll('.modal-background, .modal-close, .modal .delete, .modal-card-foot .button');
-
-  if ($modalButtons.length > 0) {
-    $modalButtons.forEach(function ($el) {
-      $el.addEventListener('click', function () {
-        var target = $el.dataset.target;
-        openModal(target);
+    if ($modalButtons.length > 0) {
+      $modalButtons.forEach(function ($el) {
+        $el.addEventListener('click', function () {
+          var target = $el.dataset.target;
+          openModal(target);
+        });
       });
-    });
-  }
-
-  if ($modalCloses.length > 0) {
-    $modalCloses.forEach(function ($el) {
-      $el.addEventListener('click', function () {
-        closeModals();
-      });
-    });
-  }
-
-  function getAll(selector) {
-    return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
-  }
-
-  function openModal(target) {
-    var $target = document.getElementById(target);
-    rootEl.classList.add('is-clipped');
-    $target.classList.add('is-active');
-  }
-
-  function closeModals() {
-    rootEl.classList.remove('is-clipped');
-    $modals.forEach(function ($el) {
-      $el.classList.remove('is-active');
-    });
-  }
-
-  document.addEventListener('keydown', function (event) {
-    var e = event || window.event;
-    if (e.keyCode === 27) {
-      closeModals();
-      closeDropdowns();
     }
-  });
+
+    if ($modalCloses.length > 0) {
+      $modalCloses.forEach(function ($el) {
+        $el.addEventListener('click', function () {
+          closeModals();
+        });
+      });
+    }
+
+    function getAll(selector) {
+      return Array.prototype.slice.call(document.querySelectorAll(selector), 0);
+    }
+
+    function openModal(target) {
+      var $target = document.getElementById(target);
+      rootEl.classList.add('is-clipped');
+      $target.classList.add('is-active');
+    }
+
+    function closeModals() {
+      rootEl.classList.remove('is-clipped');
+      $modals.forEach(function ($el) {
+        $el.classList.remove('is-active');
+      });
+    }
+
+    document.addEventListener('keydown', function (event) {
+      var e = event || window.event;
+      if (e.keyCode === 27) {
+        closeModals();
+        closeDropdowns();
+      }
+    });
+  },1000)
 });
 
 /*
@@ -145,7 +146,6 @@ function preload(){
 router.beforeEach((to, from, next) => {
   var storage = localStorage.getItem('storage');
   var fresh = false;
-  var diff = -1;
   if(storage){
     storage = JSON.parse(storage);
     var issued = moment(storage.lastUpdate).utc().format();
@@ -154,18 +154,18 @@ router.beforeEach((to, from, next) => {
     } else {
       var then = moment().subtract(10,'minutes').utc().format();
     }
-    var fresh = issued > then;
+    fresh = issued > then;
   }
   if (storage && fresh > 0) {
-    //console.log("🙎 storage is fresh")
+    console.log("🙏 storage is fresh")
     next()
   } else {
-    //console.log("🙏 update storage")
+    console.log("🙎 update storage")
     preload().then(() => {
       next()
     })
   }
-});
+})
 
 router.afterEach(function (to, from, next) {
   setTimeout(function() {
@@ -178,6 +178,9 @@ router.afterEach(function (to, from, next) {
 
   document.querySelector('html').classList = [];
   document.querySelector('html').classList.add(to.name);
+  if(document.getElementById('navMenu').classList.contains('is-active')){
+    document.getElementById('navMenu').classList.remove('is-active')
+  } 
 });
 
 export default router;

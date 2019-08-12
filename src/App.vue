@@ -2,20 +2,20 @@
   <div id="app">
 
     <!-- navbar -->
-    <nav class="navbar is-transparent" v-show="$root.ready">
+    <nav class="navbar is-transparent animated slideDown" v-show="$root.ready">
       <div class="container">
         <div v-if="$root.storage" class="navbar-brand">
           <router-link v-if="$root.storage.header" class="navbar-item" to="/">
             <img :src="$root.storage.header.logo">
             <span class="is-size-5 has-text-weight-bold" v-html="$root.storage.header.text"></span> <span class="is-size-6 is-slogan is-capitalize" v-html="$root.storage.header.subtext"></span>
           </router-link>
-          <div class="navbar-burger burger" data-target="navbarExampleTransparentExample">
+          <div class="navbar-burger burger" data-target="navMenu">
             <span></span>
             <span></span>
             <span></span>
           </div>
         </div>
-        <div id="navbarExampleTransparentExample" class="navbar-menu" v-if="$root.storage">
+        <div id="navMenu" class="navbar-menu" v-if="$root.storage">
           <div class="navbar-start">
             <router-link v-for="item in $root.storage.header.options" :key="item.link" class="navbar-item" :to="item.link" v-html="item.text"></router-link>
           </div>
@@ -25,7 +25,12 @@
 
     <!-- template -->
     <keep-alive>
-      <transition>
+      <transition
+        name="fade"
+        mode="out-in"
+        @beforeLeave="beforeLeave"
+        @enter="enter"
+        @afterEnter="afterEnter">
         <router-view/>
       </transition>
     </keep-alive>    
@@ -76,7 +81,7 @@
       <div class="modal-background"></div>
       <button aria-label="close" class="delete is-large"></button>
       <div class="modal-content has-background-white">
-        <div class="section">
+        <div class="section animated zoomIn">
           <div class="has-text-centered">
             <h1 class="is-size-4 has-text-weight-semibold">Klasse</h1>
             <h1 class="is-size-5 has-text-weight-semibold">Cigliutti Guerini</h1>
@@ -98,7 +103,29 @@
 <script>
 
 export default {
-  name: 'app'
+  name: 'app',
+  data() {
+    return {
+      prevHeight: 0,
+    };
+  },
+  methods: {
+    beforeLeave(element) {
+      this.prevHeight = getComputedStyle(element).height;
+    },
+    enter(element) {
+      const { height } = getComputedStyle(element);
+
+      element.style.height = this.prevHeight;
+
+      setTimeout(() => {
+        element.style.height = height;
+      });
+    },
+    afterEnter(element) {
+      element.style.height = 'auto';
+    }
+  }
 }
 
 </script>
@@ -109,5 +136,62 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition-property: opacity;
+  transition-duration: 0.3s;
+  transition-property: height, opacity;
+  transition-timing-function: ease;
+  overflow: hidden;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0
+}
+
+.slide-left-enter-active,
+.slide-left-leave-active,
+.slide-right-enter-active,
+.slide-right-leave-active {
+  transition-duration: 0.5s;
+  transition-property: height, opacity, transform;
+  transition-timing-function: cubic-bezier(0.55, 0, 0.1, 1);
+  overflow: hidden;
+}
+
+.slide-left-enter,
+.slide-right-leave-active {
+  opacity: 0;
+  transform: translate(2em, 0);
+}
+
+.slide-left-leave-active,
+.slide-right-enter {
+  opacity: 0;
+  transform: translate(-2em, 0);
+}
+
+.zoom-enter-active,
+.zoom-leave-active {
+  animation-duration: 0.5s;
+  animation-fill-mode: both;
+  animation-name: zoom;
+}
+
+.zoom-leave-active {
+  animation-direction: reverse;
+}
+
+@keyframes zoom {
+  from {
+    opacity: 0;
+    transform: scale3d(0.3, 0.3, 0.3);
+  }
+
+  100% {
+    opacity: 1;
+  }
 }
 </style>
