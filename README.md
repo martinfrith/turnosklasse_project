@@ -1,47 +1,6 @@
 # turnosklasse-web
 
-### Jetsbooking web app.
-* Lightweight
-* Only Vue dependencies
-* Bundled!
-* An Overlemon project
-
-![image](https://turnosklasse.herokuapp.com/static/img/isologo_turnosklasse.png)
-> Changing the way you fly
-
-## Demo
-[https://turnosklasse.herokuapp.com](https://turnosklasse.herokuapp.com)
-
-## Usage
-### Components
-
-| Route          | Description                                      | Component   |
-|:---------------|:-------------------------------------------------|:------------|
-| /              | Displays & handles basic search                  | JetsBooking |
-| /flights       | Display & handles search results with filters    | Flights     |
-| /terms         | Display JetsBooking's Terms & Conditions         | Terms       |
-| /privacy       | Display JetsBooking's Privacy Policy             | Privacy     |
-| /offers        | Displays JetsBooking's offers					| Offers      |
-| /contact       | Displays & handles JetsBooking's contact form    | Contact     |
-| /account 		 | Todo. Hanldes user flights and preferences       | Account     |
-| * 			 | Displays 404 Not Found page                      | NotFound    |
-
-### Custom Components
-
-| Component       | Description                                |  Parameters           |
-|:----------------|:-----------------------------------------|:------------------------|
-| Helper          | Handles api calls & settings             | key                     |
-| Words           | Translates into different languages      | language                |
-| Passengerpicker | Handles passengers selection             | adults,children,infants |
-| Snackbar        | Shows toast notification                 | text                    |
-
-### Events
-
-| Name             | Description                                   | Component       |  Parameters              |
-|:-----------------|:----------------------------------------------|:----------------|:-------------------------|
-| languagechanged  | triggers when the user change language        | Words           | language                 |
-| storagechanged   | triggers when storage updates                 | Vue create      | language                 |
-| passengerchanged | triggers when user selects passengers flight  | Passengerpicker | adults,children, infants |
+### Turnos klasse web app.
 
 ## Build Setup
 ### install dependencies
